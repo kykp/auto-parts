@@ -1,8 +1,8 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from '@typescript-eslint/eslint-plugin'; // Исправлено импортирование
 
 export default tseslint.config({
   extends: [js.configs.recommended, ...tseslint.configs.recommended],
@@ -23,9 +23,4 @@ export default tseslint.config({
       { allowConstantExport: true },
     ],
   },
-  overrideConfig: {
-    "linterOptions": {
-      "reportUnusedDisableDirectives": false
-    }
-  }
-})
+});
