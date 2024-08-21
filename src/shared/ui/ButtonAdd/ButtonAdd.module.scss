@@ -1,0 +1,21 @@
+.Button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius-l);
+  height: var(--input-height);
+  transition: all .3s;
+  color: var(--color-main);
+  cursor: pointer;
+
+  @include offsetVertical(calc(var(--offset-xs) * 5));
+  @include offsetHorizontal(0);
+
+  &:active {
+    transform: scale(.98);
+  }
+}
+
+.Icon {
+  margin-right: 4px;
+}

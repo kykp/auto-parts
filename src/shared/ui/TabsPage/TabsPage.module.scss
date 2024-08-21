@@ -1,0 +1,32 @@
+.Tabs {
+  display: flex;
+  gap: 24px;
+}
+
+.TabItem {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  @include offsetVertical(var(--offset-x));
+}
+
+.TabItemActive {
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--color-main);
+  }
+}
+
+.TabContent {
+  display: none;
+}
+
+.TabContentActive {
+  display: inherit;
+}

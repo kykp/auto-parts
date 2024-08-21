@@ -1,0 +1,75 @@
+.FilterOverlay {
+  background-color: rgba(44, 44, 68, 0.10);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: var(--modal-z-index);
+  transition: all .3s;
+}
+
+.Filter {
+  width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-white);
+  border-left: 1px solid var(--color-border-1);
+  position: fixed;
+  top: 0;
+  right: -320px;
+  z-index: var(--modal-z-index);
+  display: flex;
+  flex-direction: column;
+  padding: var(--offset-x);
+
+  //transition: all .3s;
+  //transform: translateX(320px);
+  //&.show {
+  //  transform: translateX(0);
+  //}
+}
+
+.header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  gap: 10px;
+  flex: 1;
+}
+
+.label {
+  margin-bottom: var(--offset-l);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 15px;
+}
+
+.container {
+  display: flex;
+  gap: 10px;
+
+  & > div {
+    max-width: 138px;
+  }
+}

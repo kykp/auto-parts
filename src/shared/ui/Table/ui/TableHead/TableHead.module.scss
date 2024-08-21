@@ -1,0 +1,32 @@
+.TableHead {
+
+}
+
+.tr {
+  gap: 24px;
+
+  .th {
+    padding: var(--offset-l) var(--offset-m);
+  }
+}
+
+.th {
+  text-align: left;
+  user-select: none;
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.arrow {
+  margin-left: 4px;
+}
+
+.isRevert {
+  .arrow {
+    transform: rotate(180deg);
+  }
+}

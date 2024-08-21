@@ -1,0 +1,16 @@
+.Option {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  width: fit-content;
+  padding: 7px 8px;
+  border-radius: 100px;
+  background-color: var(--color-background);
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

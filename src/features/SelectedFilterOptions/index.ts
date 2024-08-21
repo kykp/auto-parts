@@ -1,0 +1,1 @@
+export { SelectedFilterOptions } from './ui/SelectedFilterOptions/SelectedFilterOptions';

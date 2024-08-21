@@ -1,0 +1,113 @@
+@import "fonts";
+@import "vars";
+@import "themes/normal";
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-text-1);
+  overflow-x: hidden;
+}
+
+@media print {
+  *,
+  *::before,
+  *::after,
+  *::first-letter,
+  p::first-line,
+  div::first-line,
+  blockquote::first-line,
+  li::first-line {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-text-1);
+}
+
+button:disabled {
+  cursor: default;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+select {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+::placeholder {
+  color: var(--color-text-2);
+  opacity: 1;
+}
+
+::-ms-input-placeholder {
+  color: var(--color-text-2);
+}
+
+
+svg, path {
+  transition: all .3s;
+}
+
+ul, li {
+  list-style-type: none;
+}
+
+.rdw-image-modal-upload-option-label {
+  word-break: break-all;
+}
+
+input:disabled, select:disabled {
+  color: var(--color-text-2);
+}

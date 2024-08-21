@@ -1,0 +1,10 @@
+.Content {
+  background-color: var(--color-background-menu);
+  box-shadow: var(--box-shadow);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.filled {
+  height: calc(100vh - var(--header-height) - (var(--offset-xl) * 2) - 60);
+}

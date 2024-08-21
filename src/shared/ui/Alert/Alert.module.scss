@@ -1,0 +1,39 @@
+.Alert {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: var(--border-radius-x);
+  padding: var(--offset-x);
+  padding-left: calc(var(--offset-x) + 32px + var(--offset-l));
+  position: relative;
+}
+
+.Icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: absolute;
+  left: var(--offset-x);
+  top: var(--offset-l);
+}
+
+.type-successful {
+  border-color: var(--color-successful);
+  background-color: var(--color-background-successful);
+
+  .Icon {
+    background-color: #CAEDDF;
+  }
+}
+
+.type-error {
+  border-color: var(--color-error);
+  background-color: var(--color-background-error);
+
+  .Icon {
+    background-color: #FED7D6;
+  }
+}
+

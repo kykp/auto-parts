@@ -1,0 +1,36 @@
+/* BREAKPOINTS */
+$screen-xs: 620px;
+$screen-s: 812px;
+$screen-m: 1024px;
+$screen-l: 1280px;
+$screen-x: 1440px;
+
+@mixin xs {
+  @media (max-width: #{$screen-xs}) {
+    @content;
+  }
+}
+
+@mixin s {
+  @media (max-width: #{$screen-s}) {
+    @content;
+  }
+}
+
+@mixin m {
+  @media (max-width: #{$screen-m}) {
+    @content;
+  }
+}
+
+@mixin l {
+  @media (max-width: #{$screen-l}) {
+    @content;
+  }
+}
+
+@mixin x {
+  @media (max-width: #{$screen-x}) {
+    @content;
+  }
+}

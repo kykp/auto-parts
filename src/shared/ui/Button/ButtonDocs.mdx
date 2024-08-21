@@ -1,0 +1,77 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as ButtonStories from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+> Компонент кнопки
+<br/>
+
+## Props
+
+**`className`** `[string]?` css классы
+
+**`theme`** `см. примеры Themes` темы кнопок
+
+**`mode`** `['box' | 'rounded']?` внешний вид ссылок
+
+**`Icon`** `[FC<IconProps>]?` svg иконка в jsx
+
+**`loading`** `[boolean]?` доп. свойство, которое делает кнопку не активной. Использовать при асинхронных операциях (например - отправка формы)
+<br/>
+
+> Также компонент принимает стандартные HTML аттрибуты для тега button **`disabled`**, **`type`** и прочие
+<br/>
+
+## Themes
+
+<Canvas>
+  <Story of={ButtonStories.Primary} />
+  <Story of={ButtonStories.Secondary} />
+  <Story of={ButtonStories.Light} />
+  <Story of={ButtonStories.LightClear} />
+  <Story of={ButtonStories.Clear} />
+  <Story of={ButtonStories.White} />
+  <Story of={ButtonStories.EmptyAccent} />
+  <Story of={ButtonStories.Remove} />
+</Canvas>
+
+> Отличия между `light-clear` и `clear` в наличии(отсутствии) фона кнопки
+<br/>
+
+## Themes disabled buttons
+
+<Canvas>
+  <Story of={ButtonStories.PrimaryDisabled} />
+  <Story of={ButtonStories.SecondaryDisabled} />
+  <Story of={ButtonStories.LightDisabled} />
+  <Story of={ButtonStories.LightClearDisabled} />
+  <Story of={ButtonStories.ClearDisabled} />
+  <Story of={ButtonStories.WhiteDisabled} />
+  <Story of={ButtonStories.EmptyAccentDisabled} />
+  <Story of={ButtonStories.RemoveDisabled} />
+</Canvas>
+
+<br/>
+
+## Mode buttons
+
+<Canvas>
+  <Story of={ButtonStories.Primary} />
+  <Story of={ButtonStories.PrimaryRounded} />
+
+  <Story of={ButtonStories.Light} />
+  <Story of={ButtonStories.LightRounded} />
+</Canvas>
+
+<br/>
+
+## Buttons with Icon
+
+<Canvas>
+  <Story of={ButtonStories.SaveWithSaveIcon} />
+  <Story of={ButtonStories.CreateWithPlusIcon} />
+  <Story of={ButtonStories.LeftArrow} />
+  <Story of={ButtonStories.RightArrow} />
+</Canvas>

@@ -1,0 +1,27 @@
+.AppLink {
+
+}
+
+.theme-default {
+  color: var(--color-text-1);
+
+  &:hover {
+    color: var(--color-main);
+  }
+}
+
+.theme-main {
+  color: var(--color-main);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.theme-clear {
+  color: var(--color-text-1);
+
+  &:hover {
+    color: var(--color-text-1);
+  }
+}

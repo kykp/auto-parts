@@ -1,0 +1,35 @@
+.wrapper {
+  width: 100%;
+  max-width: 450px;
+}
+
+.form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.buttons_actions{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.forgot {
+  cursor: pointer;
+  font-size: 12px;
+}

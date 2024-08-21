@@ -1,0 +1,142 @@
+.logout {
+  position: fixed;
+  height: 60px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-background-menu);
+  width: var(--sidebar-width);
+  transition: all .25s;
+  z-index: var(--sidebar-z-index);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 16px;
+  span {
+    //white-space: nowrap;
+    overflow: hidden;
+    opacity: 0;
+    width: 175px;
+    flex: 0 0 175px;
+    text-align: left;
+  }
+
+}
+
+.Aside {
+  position: fixed;
+  top: var(--header-height);
+  bottom: 60px;
+  left: 0;
+  background-color: var(--color-background-menu);
+  width: var(--sidebar-width);
+  transition: all .25s;
+  z-index: var(--sidebar-z-index);
+  overflow: hidden;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &.opened, &:hover {
+    width: var(--sidebar-width--open);
+
+    .childLink span, .Link span {
+      transition: opacity .2s;
+      transition-timing-function: ease-in;
+      opacity: 1;
+    }
+
+    .IconRight {
+      opacity: 1;
+      transition-delay: .25s;
+    }
+
+    .submenu {
+      height: auto;
+    }
+
+    .logout {
+      width: var(--sidebar-width--open);
+
+      span {
+        transition: opacity .2s;
+        transition-timing-function: ease-in;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.Link {
+  font: var(--font-l);
+  font-weight: 700;
+  display: flex;
+  padding: var(--offset-l) var(--offset-x);
+  overflow: hidden;
+  width: 100%;
+  //align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  cursor: pointer;
+
+  span {
+    //white-space: nowrap;
+    overflow: hidden;
+    opacity: 0;
+    width: 175px;
+    flex: 0 0 175px;
+  }
+
+  &:hover {
+    background-color: var(--color-background-menu);
+  }
+}
+
+.childLink {
+  font: var(--font-l);
+  font-weight: 400;
+  display: flex;
+  padding: var(--offset-l) var(--offset-x);
+  padding-left: 44px;
+  width: 100%;
+
+  span {
+    //white-space: nowrap;
+    overflow: hidden;
+    opacity: 0;
+    width: 170px;
+    flex: 0 0 170px;
+  }
+
+  &:hover {
+    background-color: var(--color-background-menu);
+  }
+}
+
+.IconLeft {
+  width: 28px;
+  flex: 0 0 28px;
+  display: flex;
+  //align-items: center;
+  justify-content: flex-start;
+}
+
+.IconRight {
+  position: absolute;
+  right: var(--offset-m);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .3s;
+  opacity: 0;
+}
+
+.submenu {
+  height: 0;
+  overflow: hidden;
+}

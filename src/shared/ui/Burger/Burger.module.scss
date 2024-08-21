@@ -1,0 +1,74 @@
+.Burger {
+  position: relative;
+  width: 24px;
+  height: 24px;
+
+  span {
+    position: absolute;
+    height: 1px;
+    border-radius: 2px;
+    width: 18px;
+    left: 3px;
+    background-color: var(--color-text-2);
+    transition: all .3s;
+
+    &:nth-child(1) {
+      top: 6px;
+    }
+
+    &:nth-child(2) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &:nth-child(3) {
+      bottom: 6px;
+    }
+  }
+
+  &:not(.Opened):hover {
+    span {
+      &:nth-child(1) {
+        transform: translateY(-2px);
+      }
+
+      &:nth-child(3) {
+        transform: translateY(2px);
+      }
+    }
+  }
+}
+
+.Opened {
+  span {
+    &:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    &:nth-child(2) {
+      opacity: 0;
+    }
+
+    &:nth-child(3) {
+      transform: translateY(-5px) rotate(-45deg);
+    }
+  }
+
+  &:hover {
+    span {
+      width: 22px;
+
+      &:nth-child(1) {
+        transform: translateY(6px) translateX(-2px) rotate(45deg);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: translateY(-5px) translateX(-2px) rotate(-45deg);
+      }
+    }
+  }
+}

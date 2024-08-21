@@ -1,0 +1,84 @@
+.SearchContainer {
+  width: 100%;
+  border: 1px solid var(--color-border-1);
+  border-radius: var(--border-radius-l);
+  height: var(--input-height);
+  outline: none;
+  transition: all .3s;
+  display: flex;
+  align-items: center;
+
+  input {
+    font: var(--font-l);
+    flex: 1 0 auto;
+    height: var(--input-height);
+    outline: none;
+    transition: all .3s;
+    border: 0;
+    border-top: 1px solid var(--color-border-1);
+    border-bottom: 1px solid var(--color-border-1);
+    border-radius: 5px;
+
+    //@include offsetHorizontal(var(--offset-x));
+  }
+}
+
+.SearchIcon {
+  left: var(--offset-m);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 32px;
+}
+
+.SearchSelect {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  //@include offsetHorizontal(var(--offset-x));
+
+  &::before {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: calc(38px / 2);
+    width: 1px;
+    background-color: var(--color-border-1);
+  }
+}
+
+.contextMenu {
+  border: 1px solid var(--color-border-1);
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-l);
+  box-shadow: var(--color-box-shadow);
+  position: absolute;
+  padding: var(--offset-l) 0;
+  width: 190px;
+  outline: none;
+}
+
+.Option {
+  cursor: pointer;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: calc(var(--offset-x) * 2);
+  padding-right: var(--offset-x);
+
+  &:hover, &:active, &:focus {
+    background-color: var(--color-background-menu);
+  }
+}
+
+.OptionIcon {
+  position: absolute;
+  left: var(--offset-m);
+  top: 50%;
+  transform: translateY(-50%);
+}

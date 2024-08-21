@@ -1,0 +1,106 @@
+.Container {
+  width: 100%;
+}
+
+.Label {
+  margin-bottom: 4px;
+}
+
+.Input {
+  width: 100%;
+  font: var(--font-l);
+  height: var(--input-height);
+  border: 1px solid var(--color-border-1);
+  border-radius: var(--border-radius-l);
+  outline: none;
+  transition: all 0.3s;
+  background-color: var(--color-white);
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+
+  &:not(.InputDisabled) {
+    &:hover,
+    &:focus,
+    &.InputActive {
+      cursor: pointer;
+      border-color: var(--color-main);
+    }
+  }
+
+  &.InputDisabled {
+    color: var(--color-text-2);
+    background-color: var(--color-background-menu);
+  }
+}
+
+.InputError {
+  border-color: var(--color-error);
+  background-color: var(--color-background-error);
+}
+
+.Hint {
+  margin-top: 8px;
+}
+
+.contextMenu {
+  outline: none;
+  border: 1px solid var(--color-border-1);
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-m);
+  box-shadow: var(--color-box-shadow);
+  max-height: 290px;
+  overflow-y: auto;
+  z-index: var(--select-dropdown-z-index);
+
+}
+
+.Value {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Icon {
+  flex: 0 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.SearchContainer {
+  & {
+    padding-bottom: var(--offset-m); // Переместили сюда
+  }
+}
+
+.Search {
+  position: relative;
+
+  .SearchIcon {
+    position: absolute;
+    left: var(--offset-m);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  input {
+    font: var(--font-l);
+    width: 100%;
+    border: 1px solid var(--color-border-1);
+    border-radius: var(--border-radius-l);
+    height: 36px;
+    outline: none;
+    transition: all 0.3s;
+
+    & {
+      padding-left: calc(var(--offset-x) * 2);
+      padding-right: var(--offset-x);
+    }
+
+    &:disabled {
+      color: var(--color-text-2);
+    }
+  }
+}

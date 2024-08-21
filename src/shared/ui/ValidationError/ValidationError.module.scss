@@ -1,0 +1,50 @@
+.button {
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .3s;
+  background-color: var(--color-background-error--dark);
+}
+
+.text {
+  color: var(--color-text-1);
+  font-size: 12px;
+}
+.contextMenu {
+  border: 1px solid var(--color-border-1);
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-l);
+  box-shadow: var(--color-box-shadow);
+  position: absolute;
+  min-width: 148px;
+  padding: var(--offset-l);
+  z-index: var(--dropdown-z-index);
+  max-width: 200px;
+  top: 10px !important;
+  left: 10px !important;
+}
+
+.arrow {
+  top: 12px !important;
+  z-index: var(--arrow-dropdown-z-index);
+}
+
+.list {
+  list-style-type: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+
+  .itemIcon {
+    flex: 0 0 30px;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: var(--offset-m);
+  }
+}

@@ -1,0 +1,26 @@
+import { IconProps } from '@/shared/Icon';
+
+interface CheckinCircleIcon extends IconProps {
+  radius?: string
+}
+export const CheckinCircleIcon = (props: CheckinCircleIcon) => {
+  const {
+    width = 120,
+    height = 120,
+    className,
+    color = '#581DFF',
+    radius = '46.25',
+  } = props;
+
+  return (
+    <svg className={className} width={width} height={height} viewBox='0 0 120 120' fill='none'
+      xmlns='http://www.w3.org/2000/svg'>
+      <circle opacity='0.08' cx='60' cy='60' r='55' fill={color} />
+      <path
+        d='M53.6213 77.732L53.6198 77.7335C53.286 78.0621 52.8251 78.25 52.3411 78.25C51.857 78.25 51.3961 78.0621 51.0624 77.7335L51.0609 77.732L36.6466 63.6215L36.6465 63.6214C35.4509 62.4512 35.4516 60.561 36.646 59.3942L36.6466 59.3937L38.4513 57.6268C39.6562 56.4479 41.613 56.448 42.8173 57.6267L51.8166 66.4352L52.3412 66.9487L52.8658 66.4352L77.1826 42.6342C78.3877 41.455 80.3466 41.4557 81.5482 42.6337L81.5485 42.634L83.3534 44.401L83.3535 44.4011C84.5491 45.5713 84.5485 47.461 83.3539 48.6284L83.3534 48.6288L53.6213 77.732Z'
+        stroke={color} strokeWidth='1.5' />
+      <circle cx='60' cy='60' r={radius} stroke={color} strokeWidth='1.5' />
+    </svg>
+
+  );
+};

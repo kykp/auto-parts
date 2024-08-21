@@ -1,0 +1,35 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as ContainerStories from './Container.stories';
+
+<Meta of={ContainerStories} />
+
+# Container
+
+> Контейнер для блоков, который включает в себя стандартные отступы, а также имеет определенные размеры для блоков
+<br/>
+
+## Props
+
+**`className`** `[string]?` css классы
+
+**`size`** `['xs' | 'm' | 'l']?` возможные размеры контейнера ( xs - 468, m - 990, l - 1440 )
+
+<br/>
+
+## Examples
+
+<Canvas>
+  <Story of={ContainerStories.Primary} />
+</Canvas>
+
+<Canvas>
+  <Story of={ContainerStories.PrimaryXs} />
+</Canvas>
+
+<Canvas>
+  <Story of={ContainerStories.PrimaryM} />
+</Canvas>
+
+<Canvas>
+  <Story of={ContainerStories.PrimaryL} />
+</Canvas>

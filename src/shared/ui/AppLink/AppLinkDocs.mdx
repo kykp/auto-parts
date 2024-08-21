@@ -1,0 +1,32 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as AppLinkStories from './AppLink.stories';
+
+<Meta of={AppLinkStories} />
+
+# AppLink
+
+> Компонент ссылки для всего проекта
+<br/>
+
+## Props
+
+**`className`** `[string]?` css классы
+
+**`to`** `[string]` путь перехода
+
+**`isNative`** `[boolean]?` если нужно использовать стандартый a href="" заместо Link to=""
+
+**`theme`** `['default' | 'main' | 'clear']?` внешний вид ссылок
+
+> Также компонент принимает стандартные HTML аттрибуты для тега a
+
+**`target='_blank'`** **`rel='noreferrer'`** и прочие
+<br/>
+
+## Examples
+
+<Canvas>
+  <Story of={AppLinkStories.Primary} />
+  <Story of={AppLinkStories.ThemeMain} />
+  <Story of={AppLinkStories.ThemeClear} />
+</Canvas>

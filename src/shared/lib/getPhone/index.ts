@@ -1,0 +1,1 @@
+export { getPhone } from './getPhone';

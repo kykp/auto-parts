@@ -1,0 +1,44 @@
+$left-width: 224px;
+
+.Container {
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 20px;
+}
+.separator {
+  margin-top: var(--offset-x);
+}
+
+.Section {
+  display: flex;
+  flex-wrap: nowrap;
+
+}
+
+.title {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.left {
+  width: $left-width;
+  padding-right: calc(var(--offset-x) * 2);
+}
+
+.right {
+  width: calc(100% - $left-width);
+}
+
+.SectionHeader {
+}
+
+.SectionFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+}

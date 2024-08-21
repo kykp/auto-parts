@@ -1,0 +1,25 @@
+.OptionItem {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: var(--offset-m) var(--offset-x);
+
+  &:not(.disabled) {
+    &:hover {
+      background-color: var(--color-background);
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  &.disabled {
+    cursor: default;
+    opacity: .5;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: var(--offset-s);
+  }
+}

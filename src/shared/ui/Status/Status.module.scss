@@ -1,0 +1,27 @@
+.Status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 400;
+  font: var(--font-s);
+  border-radius: var(--border-radius-xl);
+  max-width: 58px;
+  max-height: 22px;
+
+  @include offsetVertical(calc(var(--offset-xs) * 5));
+  @include offsetHorizontal(calc(var(--offset-x)));
+
+}
+
+.theme-notread {
+  background-color: var(--color-successful);
+  color: var(--color-white);
+}
+
+.theme-read {
+  background-color: var(--color-background-status);
+  color: var(--color-black);
+  max-width: 77px;
+}
