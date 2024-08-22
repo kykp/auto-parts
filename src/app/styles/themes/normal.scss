@@ -23,9 +23,9 @@ $color-text-secondary: #8C92C0;
   //------ background-start-----//
   /* Фиксированный цвет фона */
   background: hsla(205, 100%, 56%, 1);
-  background: linear-gradient(135deg, hsla(205, 100%, 56%, 1) 0%, hsla(0, 0%, 87%, 0.77) 100%);
-  background: -moz-linear-gradient(135deg, hsla(205, 100%, 56%, 1) 0%, hsla(0, 0%, 87%, 0.77) 100%);
-  background: -webkit-linear-gradient(135deg, hsla(205, 100%, 56%, 1) 0%, hsla(0, 0%, 87%, 0.77) 100%);
+  background: linear-gradient(135deg, hsla(205, 100%, 56%, 1) 0%, hsl(0, 0%, 100%) 100%);
+  background: -moz-linear-gradient(135deg, hsla(205, 100%, 56%, 1) 0%, hsl(0, 0%, 100%) 100%);
+  background: -webkit-linear-gradient(135deg, hsla(205, 100%, 56%, 1) 0%, hsl(0, 0%, 100%) 100%);
   /* Градиент для старых версий Internet Explorer */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1DA1FF", endColorstr="#3A24A4", GradientType=1);
   /* Убедитесь, что градиент не повторяется */
