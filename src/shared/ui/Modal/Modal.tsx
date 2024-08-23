@@ -31,7 +31,7 @@ export const Modal = () => {
     >
       <div className={cls.container} onClick={e => e.stopPropagation()}>
         <XBtn className={cls.close} onClick={handleClose}/>
-        <ComponentToRender {...modalProps} /> {/* Рендерим компонент с пропсами */}
+        <ComponentToRender {...modalProps} />
       </div>
     </div>
   );

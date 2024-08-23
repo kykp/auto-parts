@@ -16,22 +16,20 @@ import {Table, TableConfig} from '@/shared/ui/Table';
 import {TableFilter} from '../TableFilter/TableFilter';
 
 interface PageTableProps<Data> {
-  title?: string
-  children?: ReactNode
-  tableConfig: TableConfig<Data>
-  tableData: Data[]
-  total?: number
-  isLoading: boolean
-
-  page?: string
-  perPage?: string
-  perPageList?: string[]
-  searchValue?: string
-  searchBy?: string
-  options?: SelectOption[]
-  filterConfig?: ConfigFilter[]
-
-  switchConfig?: SwitchFormProps
+  title?: string;
+  children?: ReactNode;
+  tableConfig: TableConfig<Data>;
+  tableData: Data[];
+  total?: number;
+  isLoading: boolean;
+  page?: string;
+  perPage?: string;
+  perPageList?: string[];
+  searchValue?: string;
+  searchBy?: string;
+  options?: SelectOption[];
+  filterConfig?: ConfigFilter[];
+  switchConfig?: SwitchFormProps;
 }
 
 export const PageTable = <Data extends { id: string | number }>(
@@ -45,16 +43,13 @@ export const PageTable = <Data extends { id: string | number }>(
     tableData,
     total,
     isLoading,
-
     page,
     perPage,
     perPageList,
     searchValue,
     searchBy,
     options,
-
     switchConfig,
-
     filterConfig,
   } = props;
 

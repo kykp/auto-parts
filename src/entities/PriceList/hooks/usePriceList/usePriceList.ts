@@ -1,7 +1,7 @@
 import {useFetch} from "@/shared/hooks/useFetch";
 import {PriceList} from "@/entities/PriceList/api/service.ts";
 import {PriceSchema} from "@/entities/PriceList/model/types.ts";
-import {useCallback} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 interface UsePriceListProps {
   id?: string;
@@ -9,11 +9,8 @@ interface UsePriceListProps {
 
 export const usePriceList = (props: UsePriceListProps = {}) => {
   const {id} = props;
-  const {data, query, error, isLoading} = useFetch<PriceSchema[]>('/price-list/price');
 
-  const refetch = useCallback(() => {
-    query()
-  }, []);
+  const {data, query, error, isLoading} = useFetch<PriceSchema[]>('/price-list/price');
 
   const getElementById = useFetch(`/price-list/:${id}`);
 
@@ -24,7 +21,6 @@ export const usePriceList = (props: UsePriceListProps = {}) => {
   return {
     data,
     query,
-    refetch,
     error,
     isLoading,
     getElementById,

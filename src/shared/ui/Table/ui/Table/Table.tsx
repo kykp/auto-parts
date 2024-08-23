@@ -12,6 +12,7 @@ interface TableProps<Data> {
   data: List<Data>
   tableConfig: TableConfig<Data>
   isLoading?: boolean
+  refetch?: () => void;
 }
 
 export const Table = <Data extends { id: string | number }, >(props: TableProps<Data>) => {

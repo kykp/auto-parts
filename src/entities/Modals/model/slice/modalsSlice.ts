@@ -1,4 +1,3 @@
-// src/store/modalSlice.ts
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ModalTypes} from '@/features/Modals';
 
@@ -6,12 +5,14 @@ export interface ModalStateSchema {
   isOpen: boolean;
   modalType?: ModalTypes;
   modalProps?: Record<string, any>;
+  shouldRefetch: boolean,
 }
 
 const initialState: ModalStateSchema = {
   isOpen: false,
   modalType: null,
   modalProps: {},
+  shouldRefetch: false,
 };
 
 const modalSlice = createSlice({
@@ -28,9 +29,15 @@ const modalSlice = createSlice({
       state.modalType = null;
       state.modalProps = {};
     },
+    setShouldRefetch(state) {
+      state.shouldRefetch = true;
+    },
+    resetShouldRefetch(state) {
+      state.shouldRefetch = false;
+    },
   },
 });
 
-export const {openModal, closeModal} = modalSlice.actions;
+export const {openModal, closeModal, setShouldRefetch, resetShouldRefetch} = modalSlice.actions;
 
 export default modalSlice.reducer;

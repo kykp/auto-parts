@@ -1,6 +1,5 @@
-// src/features/Modals/modalsComponentsMap.ts
 import {DeletePriceItem} from '../ui/DeletePriceItem/DeletePriceItem.tsx';
-import {ComponentType, ReactNode} from 'react';
+import {ComponentType} from 'react';
 
 // Определите тип ключей маппера
 export enum ModalTypes {
@@ -8,6 +7,6 @@ export enum ModalTypes {
 }
 
 // Определите сам маппер с ключами типа ModalType
-export const modalsComponentsMap: Record<ModalTypes, ComponentType<ReactNode>> = {
-  'deletePriceItem': DeletePriceItem,
+export const modalsComponentsMap: Record<ModalTypes, ComponentType> = {
+  [ModalTypes.DeletePriceItem]: DeletePriceItem,
 };

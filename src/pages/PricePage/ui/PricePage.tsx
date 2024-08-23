@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo} from "react";
+import {useEffect, useMemo} from "react";
 import {useSafeParams} from "@/shared/hooks/useSafeParams";
 import {routePaths} from "@/app/providers/router";
 import {PlusIcon} from "@/shared/Icon";
@@ -10,23 +10,21 @@ import {AppLink} from "@/shared/ui/AppLink";
 import {Button} from "@/shared/ui/Button";
 import {PriceSchema} from "@/entities/PriceList/model/types.ts";
 import {usePriceList} from "@/entities/PriceList/hooks/usePriceList/usePriceList.ts";
+import {useAppSelector} from "@/shared/hooks/useAppSelector";
+import {getModal} from "@/entities/Modals/model/selectors/selector.ts";
+import {useDispatch} from "react-redux";
+import {resetShouldRefetch} from "@/entities/Modals/model/slice/modalsSlice.ts";
 
 export const PricePage = () => {
   const {q, searchBy} = useSafeParams({
     searchBy: {
-      rules: ['hasInArray'],
-      safeValue: PageConfig.searchBy[0].value,
       values: PageConfig.searchBy.map(el => el.value),
     },
   });
+  const dispatch = useDispatch();
+  const {query, isLoading, data} = usePriceList();
+  const {shouldRefetch} = useAppSelector(getModal);
 
-  const {query, isLoading, data, error} = usePriceList();
-
-  // const params = useMemo(() => ({
-  //   ...(searchBy && q ? { [searchBy]: q } : {}),
-  // }), [q, searchBy]);
-
-  console.log('data', data)
   const filteredData: PriceSchema[] = useMemo(() => {
     if (!data || !Array.isArray(data)) {
       return [];
@@ -43,16 +41,24 @@ export const PricePage = () => {
     );
   }, [q, data]);
 
+
+  useEffect(() => {
+    if (shouldRefetch) {
+      query().then(_ => dispatch(resetShouldRefetch()))
+    }
+  }, [shouldRefetch]);
+
   useEffect(() => {
     query();
   }, []);
 
   return (
-    <PageTable<PriceSchema>
+    <PageTable
+      <PriceSchema>
       searchValue={q}
       searchBy={searchBy}
       tableConfig={PageConfig.tableConfig()}
-      tableData={filteredData || []}
+      tableData={filteredData}
       options={PageConfig.searchBy}
       isLoading={isLoading}
     >
