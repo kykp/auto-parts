@@ -92,7 +92,7 @@ export const TableHead = <T, >(props: TableHeadProps<T>) => {
     <thead className={cls.TableHead}>
       <tr className={cls.tr}>
         {
-          structureConfig.map((element, i) => (
+          structureConfig?.map((element, i) => (
             <TableHeadCell
               element={element}
               key={i}

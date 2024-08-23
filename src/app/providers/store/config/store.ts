@@ -1,10 +1,12 @@
 // redux/store.ts
 import {configureStore} from '@reduxjs/toolkit';
-import {userProfileSlice} from '@/entities/UserProfile/';
+import {UserProfileSchema, userProfileSlice} from '@/entities/UserProfile/';
+import {modalReducer, ModalStateSchema} from "@/entities/Modals";
 
 // Тип состояния всего приложения
 export interface StateSchema {
-  userProfile: ReturnType<typeof userProfileSlice.reducer>;
+  userProfile: UserProfileSchema;
+  modal: ModalStateSchema;
 }
 
 // Функция для создания Redux хранилища
@@ -12,6 +14,7 @@ export function createReduxStore(initialState?: StateSchema) {
   return configureStore({
     reducer: {
       userProfile: userProfileSlice.reducer, // Используем редуктор из среза
+      modal: modalReducer
     },
     preloadedState: initialState, // Начальное состояние
   });

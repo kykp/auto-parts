@@ -1,10 +1,11 @@
 import { AxiosError } from 'axios';
-import { useState } from 'react';
+import {useCallback, useState} from 'react';
 import $api from '@/shared/api/axiosinstance';
 
 // Интерфейс для опций запроса
 interface Options {
   method: 'get' | 'post' | 'put' | 'delete';
+  headers?: Record<string, string>;
 }
 
 // Декларация функции useFetch
@@ -17,7 +18,7 @@ export const useFetch = <Response, Params extends object = object>(
   const [error, setError] = useState<AxiosError | string | null>(null);
 
   // Функция запроса
-  const query = async (params?: Params): Promise<Response> => {
+  const query = useCallback(async (params?: Params): Promise<Response> => {
     setLoading(true);
     setError(null);
 
@@ -25,6 +26,7 @@ export const useFetch = <Response, Params extends object = object>(
       const response = await $api({
         url,
         method: options.method,
+        headers: options.headers,
         ...(options.method === 'get' ? { params } : { data: params })
       });
 
@@ -44,7 +46,7 @@ export const useFetch = <Response, Params extends object = object>(
     } finally {
       setLoading(false);
     }
-  };
+  }, [url, options]);
 
   return {
     data,

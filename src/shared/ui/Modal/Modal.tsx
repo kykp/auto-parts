@@ -1,56 +1,37 @@
 import clsx from 'clsx';
-import type { CSSProperties, ReactNode } from 'react';
-import { useEffect } from 'react';
 
-import { XBtn } from '@/shared/ui/XBtn/XBtn';
+import {XBtn} from '@/shared/ui/XBtn/XBtn';
 
 import cls from './Modal.module.scss';
 
+import {useDispatch} from 'react-redux';
+import {closeModal} from "@/entities/Modals/model/slice/modalsSlice.ts"
+import {getModal} from "@/entities/Modals/model/selectors/selector.ts";
+import {useAppSelector} from "@/shared/hooks/useAppSelector";
+import {modalsComponentsMap} from "@/features/Modals/types/types.ts";
 
-interface ModalProps {
-  children: ReactNode;
-  isOpen: boolean;
-  isShowClose?: boolean;
-  onClose: () => void;
-  className?: string;
-  style?: CSSProperties
-}
+export const Modal = () => {
+  const dispatch = useDispatch();
+  const { isOpen, modalType, modalProps } = useAppSelector(getModal);
 
-const body = document.querySelector('body') as HTMLElement;
+  if (!isOpen || !modalType) return null;
 
-export const Modal = (props: ModalProps) => {
+  const handleClose = () => {
+    dispatch(closeModal());
+  };
 
-  const {
-    children,
-    isOpen,
-    isShowClose,
-    onClose,
-    className,
-    style,
-  } = props;
+  const ComponentToRender = modalType ? modalsComponentsMap[modalType] : null;
 
-
-  useEffect(() => {
-    if (isOpen) {
-      if (isOpen) body.style.overflow = 'hidden';
-      else body.style.overflow = 'inherit';
-    }
-
-    return () => {
-      body.style.overflow = 'inherit';
-    };
-  }, [isOpen]);
+  if (!ComponentToRender) return null;
 
   return (
     <div
-      className={clsx(cls.modal, { [cls.show]: isOpen }, className || '')}
-      onClick={onClose}
+      className={clsx(cls.modal, {[cls.show]: isOpen})}
+      onClick={handleClose}
     >
-      <div style={style} className={cls.container} onClick={e => e.stopPropagation()}>
-        {isShowClose && (
-          <XBtn className={cls.close} onClick={onClose} />
-        )}
-        {children}
+      <div className={cls.container} onClick={e => e.stopPropagation()}>
+        <XBtn className={cls.close} onClick={handleClose}/>
+        <ComponentToRender {...modalProps} /> {/* Рендерим компонент с пропсами */}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { plural } from '@/shared/lib/plural';
+import {plural} from '@/shared/lib/plural';
 
 export const lang = {
   hint: {
@@ -76,7 +76,7 @@ export const lang = {
     unblock: 'Разблокировать',
     editSelection: 'Изменить выбор',
     close: 'Закрыть',
-    acceptFilters:'Применить фильтры',
+    acceptFilters: 'Применить фильтры',
     clearFilters: 'Сбросить фильтры',
     toSign: 'К авторизации',
     addEmail: 'Добавить e-mail',
@@ -84,6 +84,9 @@ export const lang = {
   title: {
     auth: 'Авторизация',
     register: 'Регистрация',
+    priceElement: 'Информация о товаре',
+    creatNewPriceItem: 'Создание нового товара',
+    editPriceItem: 'Изменение товара',
     newPassword: 'Новый пароль',
     rememberPassword: 'Восстановление пароля',
     checkYourEmail: 'Проверьте почту',
@@ -111,6 +114,7 @@ export const lang = {
     changesSave: 'Изменения сохранены',
     serverError: 'Произошла непредвиденная ошибка',
     error: 'Ошибка',
+    additionalInfo: 'Дополнительная информация'
   },
   text: {
     perPage: 'Количество на странице:',
@@ -126,7 +130,8 @@ export const lang = {
     extra: 'Дополнительно',
     phone: 'Телефоны',
     email: 'E-mail',
-    filter: 'Фильтр'
+    filter: 'Фильтр',
+    acceptDelete: 'Вы уверены что хотите удалить элемент'
   },
   cell: {
     id: 'ID',
@@ -163,8 +168,17 @@ export const lang = {
     enterNumber: 'Введите число',
     selectType: 'Выберите тип',
   },
-  label : {
+  label: {
     isMain: 'Сделать основным',
     listOrder: 'Очередность в списке',
+    article: 'Артикул',
+    name: 'Название',
+    brand: 'Бренд',
+    deliveryTime: 'Срок поставки',
+    quantity: 'Количество',
+    price: 'Цена',
+    purchasePrice: 'Закупочная цена',
+    supplier: 'Поставщик',
+    minOrderQty: 'Мин. для заказа'
   },
 };

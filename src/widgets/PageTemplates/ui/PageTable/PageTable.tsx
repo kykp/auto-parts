@@ -11,15 +11,14 @@ import {Container} from '@/shared/ui/Container';
 import {Content} from '@/shared/ui/Content';
 import {ScrollContent} from '@/shared/ui/ScrollContent';
 import {Section} from '@/shared/ui/Section';
-import {Table} from '@/shared/ui/Table';
+import {Table, TableConfig} from '@/shared/ui/Table';
 
 import {TableFilter} from '../TableFilter/TableFilter';
 
 interface PageTableProps<Data> {
   title?: string
   children?: ReactNode
-  // tableConfig: TableConfig<Data>
-  tableConfig: any;
+  tableConfig: TableConfig<Data>
   tableData: Data[]
   total?: number
   isLoading: boolean

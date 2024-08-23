@@ -89,11 +89,11 @@ export const TableBody = <Data extends { id: string | number },>(props: TableBod
   return (
     <tbody>
       {
-        items.map((row) => (
+        items?.map((row) => (
           <TableBodyRow structureConfig={structureConfig} row={row} key={row.id} />
         ))
       }
-      {items.length === 0 && !isLoading && (
+      {items?.length === 0 && !isLoading && (
         <tr className={clsx(cls.tr, cls.trMessage)}>
           <td className={cls.td} colSpan={structureConfig.length}>
             <span>{lang.text.dataNotFound}</span>

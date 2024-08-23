@@ -1,10 +1,11 @@
 import { MainPage } from '@/pages/MainPage';
-import {Prices} from "@/pages/Prices";
+import {PricePage} from "@/pages/PricePage";
 
 import { HomePageIcon, BrowserIcon} from '@/shared/Icon'
 
 import { routePaths } from './routePaths';
 import { RouteSchema } from './types';
+import {PriceCreateForm} from "@/features/PriceForm";
 
 export const appRoutes: RouteSchema[] = [
   {
@@ -16,9 +17,13 @@ export const appRoutes: RouteSchema[] = [
 },
   {
     path: routePaths.prices,
-    Component: Prices,
-    name: 'Прайсы',
+    Component: PricePage,
+    name: 'Прайс',
     inMenu: true,
     Icon: <BrowserIcon width={20} height={20} />,
   },
+  {
+    path: routePaths.createPriceItem,
+    Component: PriceCreateForm,
+  }
 ];

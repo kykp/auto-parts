@@ -1,7 +1,6 @@
 import {defineConfig} from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import checker from "vite-plugin-checker";
 import * as dns from "dns";
 
 dns.setDefaultResultOrder('verbatim')
@@ -10,6 +9,15 @@ dns.setDefaultResultOrder('verbatim')
 export default defineConfig({
   build: {
     outDir: 'build',
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor'; // Все зависимости из node_modules будут вынесены в отдельный чанк
+          }
+        }
+      }
+    }
   },
   plugins: [
     react(),

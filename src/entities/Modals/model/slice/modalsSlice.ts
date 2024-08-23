@@ -1,27 +1,36 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
+// src/store/modalSlice.ts
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {ModalTypes} from '@/features/Modals';
 
-import { ModalIdsType } from '@/entities/Modals';
+export interface ModalStateSchema {
+  isOpen: boolean;
+  modalType?: ModalTypes;
+  modalProps?: Record<string, any>;
+}
 
-import type { IModal } from '../types/modal';
-import type { ModalSchema } from '../types/modalSchema';
+const initialState: ModalStateSchema = {
+  isOpen: false,
+  modalType: null,
+  modalProps: {},
+};
 
-const initialState: ModalSchema = [];
-
-export const modalsSlice = createSlice({
-  name: 'modals',
+const modalSlice = createSlice({
+  name: 'modal',
   initialState,
   reducers: {
-    addModal: (state, action: PayloadAction<IModal<ModalIdsType>>) => {
-      state.push(action.payload);
+    openModal: (state, action: PayloadAction<{ modalType: ModalTypes; modalProps?: Record<string, any> }>) => {
+      state.isOpen = true;
+      state.modalType = action.payload.modalType;
+      state.modalProps = action.payload.modalProps || {};
     },
-    removeModal: (state) => {
-      state.pop();
+    closeModal: (state) => {
+      state.isOpen = false;
+      state.modalType = null;
+      state.modalProps = {};
     },
   },
 });
 
-export const {
-  actions: modalsAction,
-  reducer: modalsReducer,
-} = modalsSlice;
+export const {openModal, closeModal} = modalSlice.actions;
+
+export default modalSlice.reducer;

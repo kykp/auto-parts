@@ -1,4 +1,5 @@
 export const routePaths = {
   mainPage: '/',
-  prices: '/prices',
+  prices: '/price',
+  createPriceItem: '/price/create',
 }
