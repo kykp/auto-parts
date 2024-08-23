@@ -1,4 +1,4 @@
-import {useEffect, useMemo} from "react";
+import {useEffect} from "react";
 import {useSafeParams} from "@/shared/hooks/useSafeParams";
 import {routePaths} from "@/app/providers/router";
 import {PlusIcon} from "@/shared/Icon";
@@ -10,43 +10,22 @@ import {AppLink} from "@/shared/ui/AppLink";
 import {Button} from "@/shared/ui/Button";
 import {PriceSchema} from "@/entities/PriceList/model/types.ts";
 import {usePriceList} from "@/entities/PriceList/hooks/usePriceList/usePriceList.ts";
-import {useAppSelector} from "@/shared/hooks/useAppSelector";
-import {getModal} from "@/entities/Modals/model/selectors/selector.ts";
-import {useDispatch} from "react-redux";
-import {resetShouldRefetch} from "@/entities/Modals/model/slice/modalsSlice.ts";
+import {useRefetch} from "@/shared/hooks/useRefetch";
+import {filteredData} from '../config/tableDataParser.ts'
 
 export const PricePage = () => {
   const {q, searchBy} = useSafeParams({
     searchBy: {
+      rules: ['hasInArray'],
+      safeValue: PageConfig.searchBy[0].value,
       values: PageConfig.searchBy.map(el => el.value),
     },
   });
-  const dispatch = useDispatch();
+
   const {query, isLoading, data} = usePriceList();
-  const {shouldRefetch} = useAppSelector(getModal);
+  useRefetch({query})
 
-  const filteredData: PriceSchema[] = useMemo(() => {
-    if (!data || !Array.isArray(data)) {
-      return [];
-    }
-
-    if (!q) {
-      return data;
-    }
-
-    const lowercaseQuery = q.toLowerCase();
-
-    return data.filter((el: PriceSchema) =>
-      el.name.toLowerCase().includes(lowercaseQuery)
-    );
-  }, [q, data]);
-
-
-  useEffect(() => {
-    if (shouldRefetch) {
-      query().then(_ => dispatch(resetShouldRefetch()))
-    }
-  }, [shouldRefetch]);
+  const tableData = filteredData({data, q})
 
   useEffect(() => {
     query();
@@ -58,7 +37,7 @@ export const PricePage = () => {
       searchValue={q}
       searchBy={searchBy}
       tableConfig={PageConfig.tableConfig()}
-      tableData={filteredData}
+      tableData={tableData}
       options={PageConfig.searchBy}
       isLoading={isLoading}
     >
