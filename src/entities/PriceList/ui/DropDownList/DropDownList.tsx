@@ -5,6 +5,7 @@ import {openModal} from "@/entities/Modals/model/slice/modalsSlice.ts";
 import {dropdownMenuItems} from "@/shared/consts/dropdownMenuItems.tsx";
 import {ModalTypes} from "@/features/Modals";
 import {routePaths} from "@/app/providers/router";
+import {useNavigate} from "react-router-dom";
 
 export interface DropdownListProps {
   id: number;
@@ -13,7 +14,7 @@ export interface DropdownListProps {
 
 export const DropdownList = (props: DropdownListProps) => {
   const {id, name} = props;
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -24,9 +25,8 @@ export const DropdownList = (props: DropdownListProps) => {
     }));
   };
 
-
   const onEdit = () => {
-    // navigate(routePaths.cityEdit.replace(':id', props.id + '?isEdit'));
+    navigate(routePaths.editPriceItem.replace(':id', props.id + '?isEdit'));
   };
 
   return (

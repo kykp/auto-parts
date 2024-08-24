@@ -12,7 +12,7 @@ export const usePriceList = (props: UsePriceListProps = {}) => {
 
   const {data, query, error, isLoading} = useFetch<PriceSchema[]>('/price-list/price');
 
-  const getElementById = useFetch(`/price-list/:${id}`);
+  const {data: dataById, query: queryById, isLoading: isLoadingById} = useFetch<PriceSchema>(`/price-list/${id}`);
 
   const deleteElement = PriceList.deletePriceElement;
   const createElement = PriceList.createPriceElement;
@@ -23,7 +23,9 @@ export const usePriceList = (props: UsePriceListProps = {}) => {
     query,
     error,
     isLoading,
-    getElementById,
+    dataById,
+    queryById,
+    isLoadingById,
     deleteElement,
     createElement,
     updateElement,

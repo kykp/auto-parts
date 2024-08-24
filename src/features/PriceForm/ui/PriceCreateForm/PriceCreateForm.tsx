@@ -1,6 +1,5 @@
 import {Content} from "@/shared/ui/Content";
 import {useForm} from "react-hook-form";
-import {defaultValues} from "../../config/defaultValues.ts";
 import {resolver} from "../../config/resolver.ts";
 import {useNavigate} from "react-router-dom";
 import {FormValues} from "../../types/types.ts";
@@ -9,14 +8,15 @@ import {PlusIcon, SaveIcon} from "@/shared/Icon";
 import {Section} from "@/shared/ui/Section";
 import {Button} from "@/shared/ui/Button";
 import {FieldController} from "@/shared/ui/FieldController";
-import {Container} from "@/shared/ui/Container";
 import cls from './PriceCreateForm.module.scss';
 import {usePriceList} from "@/entities/PriceList/hooks/usePriceList/usePriceList.ts";
 import {routePaths} from "@/app/providers/router";
+import {PriceSchema} from "@/entities/PriceList/model/types.ts";
+import {parseDataToForm} from "../../config/parseDataToForm.ts"
 
 interface PriceCreateForm {
   id?: string;
-  initialValues: FormValues | null;
+  initialValues: PriceSchema | null;
 }
 
 export const PriceCreateForm = (props: PriceCreateForm) => {
@@ -25,7 +25,7 @@ export const PriceCreateForm = (props: PriceCreateForm) => {
     id,
   } = props;
 
-  const {control, handleSubmit,} = useForm<FormValues>({defaultValues, resolver});
+  const {control, handleSubmit,} = useForm<FormValues>({defaultValues: parseDataToForm(initialValues), resolver});
 
   const navigate = useNavigate();
 
@@ -41,14 +41,14 @@ export const PriceCreateForm = (props: PriceCreateForm) => {
     }
   }
   return (
-    <Container size='l'>
-      <Content>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className={cls.wrapper}>
-            <Section.Header>
-              <Section.Title title={id ? lang.title.editPriceItem : lang.title.creatNewPriceItem} isBack/>
-            </Section.Header>
-            <Section isSeparator title={lang.title.priceElement}>
+    <Content>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={cls.wrapper}>
+          <Section.Header>
+            <Section.Title title={id ? lang.title.editPriceItem : lang.title.creatNewPriceItem} isBack/>
+          </Section.Header>
+          <Section isSeparator title={lang.title.priceElement}>
+            <div className={cls.body}>
               <FieldController.Input
                 control={control}
                 name='article'
@@ -86,28 +86,28 @@ export const PriceCreateForm = (props: PriceCreateForm) => {
               />
               <FieldController.Input
                 control={control}
-                name='price'
-                label={lang.label.price}
-              />
-              <FieldController.Input
-                control={control}
                 name='purchase_price'
                 label={lang.label.purchasePrice}
               />
-            </Section>
-            <Section.Footer>
-              <div className={cls.buttons}>
-                <Button theme='white'>{lang.btn.cancel}</Button>
-                <Button
-                  type='submit'
-                  Icon={id ? SaveIcon : PlusIcon}>
-                  {id ? lang.btn.save : lang.btn.create}
-                </Button>
-              </div>
-            </Section.Footer>
-          </div>
-        </form>
-      </Content>
-    </Container>
+              <FieldController.Input
+                control={control}
+                name='price'
+                label={lang.label.price}
+              />
+            </div>
+          </Section>
+          <Section.Footer>
+            <div className={cls.buttons}>
+              <Button theme='white'>{lang.btn.cancel}</Button>
+              <Button
+                type='submit'
+                Icon={id ? SaveIcon : PlusIcon}>
+                {id ? lang.btn.save : lang.btn.create}
+              </Button>
+            </div>
+          </Section.Footer>
+        </div>
+      </form>
+    </Content>
   )
 }

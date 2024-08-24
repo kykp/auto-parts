@@ -1,7 +1,11 @@
 .wrapper {
   padding: 20px;
 }
-
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 .buttons {
   width: 100%;
   display: flex;
