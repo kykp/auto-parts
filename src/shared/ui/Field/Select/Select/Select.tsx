@@ -19,6 +19,7 @@ import {ArrowFlatDownIcon, SearchIcon} from '@/shared/Icon';
 import {OptionItem} from '../OptionItem/OptionItem';
 
 import cls from './Select.module.scss';
+import {SelectOptions} from "@/app/types/types.ts";
 
 export interface SelectProps<Option> {
   className?: string
@@ -28,7 +29,7 @@ export interface SelectProps<Option> {
   error?: string
   placeholder?: string
   isSearchable?: boolean
-  options: Option[]
+  options: SelectOptions[]
   value: Option | null
   onChange: (val: Option) => void
   paginate?: (searchVal?: string) => void

@@ -1,4 +1,4 @@
-import {lang} from '@/shared/consts/lang';
+import {lang} from '@/shared/consts/lang.ts';
 import {tableConfig} from "@/entities/PriceList/config/tableConfig.ts";
 
 const PageConfig = {

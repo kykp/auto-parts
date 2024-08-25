@@ -1,0 +1,27 @@
+.wrapper {
+  margin-top: 15px;
+  overflow-x: scroll;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  & th  {
+    padding-left: 10px;
+    min-width: 180px;
+  }
+  & td {
+    padding-top: 10px;
+    padding-left: 10px;
+    min-width: 180px;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+  width: 150px;
+  margin: 20px auto;
+}

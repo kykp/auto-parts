@@ -58,6 +58,7 @@ export const lang = {
   },
   btn: {
     signIn: 'Войти',
+    xlsx: 'XLSX',
     register: 'Регистрация',
     rememberPassword: 'Забыли пароль',
     save: 'Сохранить',
@@ -114,7 +115,9 @@ export const lang = {
     changesSave: 'Изменения сохранены',
     serverError: 'Произошла непредвиденная ошибка',
     error: 'Ошибка',
-    additionalInfo: 'Дополнительная информация'
+    additionalInfo: 'Дополнительная информация',
+    uploadingXLSXData: 'Выгрузка данных из XLSX',
+    firstTenElements: 'Вы видите первые 10 элементов загружаемого прайс листа'
   },
   text: {
     perPage: 'Количество на странице:',
