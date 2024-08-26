@@ -116,7 +116,8 @@ export const lang = {
     serverError: 'Произошла непредвиденная ошибка',
     error: 'Ошибка',
     additionalInfo: 'Дополнительная информация',
-    uploadingXLSXData: 'Выгрузка данных из XLSX',
+    uploadingXLSXData: 'Загрузка данных из XLSX в базу',
+    downloadingXLSXData: 'Выгрузить данные из базы',
     firstTenElements: 'Вы видите первые 10 элементов загружаемого прайс листа'
   },
   text: {

@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 40px;
+}
+
+.header {
+
+}
+
+.body {
+  margin-top: 25px;
+}
+
+.fields {
+  margin-top: 25px;
+}
+
+.field {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.buttons {
+  margin-top: 50px;
+  display: flex;
+  gap: 15px;
+}
+
+.input {
+  max-width: 150px;
+}

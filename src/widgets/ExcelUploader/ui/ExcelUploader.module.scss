@@ -4,6 +4,7 @@
 }
 
 .body {
+  margin-top: 25px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -19,6 +20,15 @@
   }
 }
 
+.header{
+  margin: 25px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.button {
+  max-width: 100px;
+}
 .buttons {
   display: flex;
   gap: 20px;

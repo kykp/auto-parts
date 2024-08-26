@@ -8,7 +8,7 @@ import {useDispatch} from 'react-redux';
 import {closeModal} from "@/entities/Modals/model/slice/modalsSlice.ts"
 import {getModal} from "@/entities/Modals/model/selectors/selector.ts";
 import {useAppSelector} from "@/shared/hooks/useAppSelector";
-import {modalsComponentsMap} from "@/features/Modals/types/types.ts";
+import {modalsComponentsMap} from "@/widgets/Modals/types/types.ts";
 
 export const Modal = () => {
   const dispatch = useDispatch();

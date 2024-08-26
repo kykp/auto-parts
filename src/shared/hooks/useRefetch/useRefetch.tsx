@@ -4,11 +4,11 @@ import {resetShouldRefetch, setShouldRefetch} from "@/entities/Modals/model/slic
 import {useAppSelector} from "@/shared/hooks/useAppSelector";
 import {getModal} from "@/entities/Modals/model/selectors/selector.ts";
 
-export interface UseRefetchProps {
-  query?: <T>(params?: object) => Promise<T[]>
+export interface UseRefetchProps<T> {
+  query?: (params?: object) => Promise<T[]>
 }
 
-export const useRefetch = (props: UseRefetchProps = {}) => {
+export const useRefetch = (props: UseRefetchProps<any> = {}) => {
   const {query} = props;
 
   const dispatch = useDispatch();

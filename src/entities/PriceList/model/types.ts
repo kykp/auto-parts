@@ -20,7 +20,7 @@ export interface PriceSchemaMutation extends Omit<PriceSchema, 'id'> {
 export type MainPriceSchemaHeaderKeys = keyof PriceSchemaMutation;
 
 // Переводы для ключей
-const translations: Record<PriceSchemaMutation, string> = {
+const translations: Record<MainPriceSchemaHeaderKeys, string> = {
   article: 'Артикул',
   name: 'Название',
   brand: 'Бренд',
@@ -40,13 +40,13 @@ export const createSelectOptions = (): SelectOptions<MainPriceSchemaHeaderKeys>[
   const keys: MainPriceSchemaHeaderKeys[] = [
     'article',
     'name',
+    'supplier',
     'brand',
     'delivery_time',
     'min_order_qty',
     'quantity',
-    'supplier',
-    'price',
-    'purchase_price'
+    'purchase_price',
+    'price'
   ];
 
   // Преобразуем ключи в массив опций

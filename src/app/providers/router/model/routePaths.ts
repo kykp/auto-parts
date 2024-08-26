@@ -3,5 +3,6 @@ export const routePaths = {
   prices: '/price',
   createPriceItem: '/price/create',
   editPriceItem: '/price/edit/:id',
-  uploadPrice: '/price/upload'
+  uploadPrice: '/price/upload',
+  downloadPrice: '/price/download',
 }

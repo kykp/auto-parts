@@ -1,12 +1,20 @@
 import * as XLSX from 'xlsx';
+import {PriceSchemaMutation} from "@/entities/PriceList/model/types.ts";
+import {Button} from "@/shared/ui/Button";
 
-export const ExportToExcel = () => {
+interface ExportToExcelProps {
+  data: PriceSchemaMutation
+}
+
+export const ExportToExcel = (props: ExportToExcelProps) => {
+  const {data} = props;
+
   const handleDownload = () => {
     // Данные для записи в Excel
     const data = [
-      { Name: 'John Doe', Age: 30, City: 'New York' },
-      { Name: 'Jane Doe', Age: 28, City: 'Chicago' },
-      { Name: 'Michael Smith', Age: 35, City: 'San Francisco' }
+      {Name: 'John Doe', Age: 30, City: 'New York'},
+      {Name: 'Jane Doe', Age: 28, City: 'Chicago'},
+      {Name: 'Michael Smith', Age: 35, City: 'San Francisco'}
     ];
 
     // Преобразование данных в формат листа
@@ -23,8 +31,6 @@ export const ExportToExcel = () => {
   };
 
   return (
-    <button onClick={handleDownload}>
-      Скачать Excel файл
-    </button>
+    <Button theme='primary' type='submit' onClick={handleDownload}>Download</Button>
   );
 };

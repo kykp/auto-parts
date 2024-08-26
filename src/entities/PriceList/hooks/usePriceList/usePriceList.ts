@@ -17,6 +17,7 @@ export const usePriceList = (props: UsePriceListProps = {}) => {
   const deleteElement = PriceList.deletePriceElement;
   const createElement = PriceList.createPriceElement;
   const updateElement = PriceList.updatePriceElementById;
+  const bulkUpdatePrice = PriceList.bulkUploadPrice;
 
   return {
     data,
@@ -29,5 +30,6 @@ export const usePriceList = (props: UsePriceListProps = {}) => {
     deleteElement,
     createElement,
     updateElement,
+    bulkUpdatePrice,
   }
 }

@@ -3,7 +3,7 @@ import {Dropdown} from '@/shared/ui/Dropdown';
 import {useDispatch} from "react-redux";
 import {openModal} from "@/entities/Modals/model/slice/modalsSlice.ts";
 import {dropdownMenuItems} from "@/shared/consts/dropdownMenuItems.tsx";
-import {ModalTypes} from "@/features/Modals";
+import {ModalTypes} from "@/widgets/Modals";
 import {routePaths} from "@/app/providers/router";
 import {useNavigate} from "react-router-dom";
 

@@ -2,6 +2,7 @@ import {MainPage} from '@/pages/MainPage';
 import {PricePage} from "@/pages/PricePage";
 import {PriceDetailsPage} from "@/pages/PriceDetailsPage";
 import {PriceUploadPage} from "@/pages/PriceUploadPage";
+import {PriceDownloadPage} from "@/pages/PriceDownloadPage";
 
 import {BrowserIcon, HomePageIcon} from '@/shared/Icon'
 
@@ -34,5 +35,9 @@ export const appRoutes: RouteSchema[] = [
   {
     path: routePaths.uploadPrice,
     Component: PriceUploadPage,
+  },
+  {
+    path: routePaths.downloadPrice,
+    Component:PriceDownloadPage,
   }
 ];

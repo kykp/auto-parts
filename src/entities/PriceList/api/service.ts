@@ -14,4 +14,13 @@ export class PriceList {
   static deletePriceElement = (id: number) => {
     return $api.delete(`/price-list/${id}`)
   }
+
+  static bulkUploadPrice = (data: PriceSchemaMutation, onProgress: (progressEvent: any) => void) => {
+    return $api.post('/price-list/bulk-update', {updatedPriceList: data}, {onUploadProgress: onProgress})
+  };
+
+  // static bulkUploadPrice = (data: PriceSchemaMutation) => {
+  //   return $api.post('/price-list/bulk-update', {updatedPriceList: data});
+  // }
+
 }

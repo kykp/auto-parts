@@ -6,7 +6,7 @@ export const checkAndRefreshToken = async () => {
     const newAccessToken = await refreshAccessToken();
 
     setCookie(null, 'accessToken', newAccessToken, {
-      maxAge: 60 * 15, // 15 минут
+      maxAge: 60 * 60, // 15 минут
       path: '/',
       sameSite: 'Strict',
     });
