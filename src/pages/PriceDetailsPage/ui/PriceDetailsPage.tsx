@@ -19,7 +19,7 @@ export const PriceDetailsPage = () => {
 
   return (
     <PageContent>
-      {showForm && !isLoadingById && (<PriceCreateForm initialValues={dataById}/>)}
+      {showForm && !isLoadingById && (<PriceCreateForm initialValues={dataById} id={Number(id)}/>)}
     </PageContent>
   )
 }

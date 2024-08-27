@@ -1,0 +1,1 @@
+import{j as r}from"./vendor-CH3zxDWf.js";import{C as t,a as e}from"./index-qXogyCdf.js";const a=()=>r.jsx(t,{size:"l",children:r.jsx(e,{children:"Главная страница"})});export{a as default};

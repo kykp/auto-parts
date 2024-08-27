@@ -13,9 +13,10 @@ import {usePriceList} from "@/entities/PriceList/hooks/usePriceList/usePriceList
 import {routePaths} from "@/app/providers/router";
 import {PriceSchema} from "@/entities/PriceList/model/types.ts";
 import {parseDataToForm} from "../../config/parseDataToForm.ts"
+import {formFields} from "@/features/PriceForm/config/formFields.ts";
 
 interface PriceCreateForm {
-  id?: string;
+  id?: number;
   initialValues: PriceSchema | null;
 }
 
@@ -29,13 +30,15 @@ export const PriceCreateForm = (props: PriceCreateForm) => {
 
   const navigate = useNavigate();
 
-  const {createElement} = usePriceList();
+  const {createElement, updateElement} = usePriceList();
 
   const onSubmit = async (values: FormValues) => {
     try {
-      const response = await createElement(values);
+      const response = id
+        ? await updateElement(values, id)
+        : await createElement(values);
 
-      response && navigate(routePaths.prices);
+      if (response) navigate(routePaths.prices);
     } catch (e) {
       console.log('Ошибка авторизации', e)
     }
@@ -49,51 +52,9 @@ export const PriceCreateForm = (props: PriceCreateForm) => {
           </Section.Header>
           <Section isSeparator title={lang.title.priceElement}>
             <div className={cls.body}>
-              <FieldController.Input
-                control={control}
-                name='article'
-                label={lang.label.article}
-              />
-              <FieldController.Input
-                control={control}
-                name='name'
-                label={lang.label.name}
-              />
-              <FieldController.Input
-                control={control}
-                name='brand'
-                label={lang.label.brand}
-              />
-              <FieldController.Input
-                control={control}
-                name='delivery_time'
-                label={lang.label.deliveryTime}
-              />
-              <FieldController.Input
-                control={control}
-                name='min_order_qty'
-                label={lang.label.minOrderQty}
-              />
-              <FieldController.Input
-                control={control}
-                name='quantity'
-                label={lang.label.quantity}
-              />
-              <FieldController.Input
-                control={control}
-                name='supplier'
-                label={lang.label.supplier}
-              />
-              <FieldController.Input
-                control={control}
-                name='purchase_price'
-                label={lang.label.purchasePrice}
-              />
-              <FieldController.Input
-                control={control}
-                name='price'
-                label={lang.label.price}
-              />
+              {formFields.map(({name, label}) => (
+                <FieldController.Input key={name} control={control} name={name} label={label}/>
+              ))}
             </div>
           </Section>
           <Section.Footer>

@@ -7,7 +7,7 @@ export class PriceList {
     return $api.post('/price-list', data);
   }
 
-  static updatePriceElementById = (id: number, data: PriceSchemaMutation) => {
+  static updatePriceElementById = (data: PriceSchemaMutation, id: number) => {
     return $api.put(`/price-list/${id}`, data);
   }
 

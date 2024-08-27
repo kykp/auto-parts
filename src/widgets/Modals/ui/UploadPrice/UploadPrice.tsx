@@ -16,8 +16,10 @@ export const UploadPrice = (props) => {
   return (
     <div className={cls.wrapper}>
 
-      <h2>{message}</h2>
-
+      <h2>{lang.title.error}</h2>
+      <div className={cls.body}>
+        <span>{message}</span>
+      </div>
       <div className={cls.buttons}>
         <Button
           theme={'remove'}
