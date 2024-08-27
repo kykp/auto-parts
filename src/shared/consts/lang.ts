@@ -135,7 +135,8 @@ export const lang = {
     phone: 'Телефоны',
     email: 'E-mail',
     filter: 'Фильтр',
-    acceptDelete: 'Вы уверены что хотите удалить элемент'
+    acceptDelete: 'Вы уверены что хотите удалить элемент',
+    acceptDeleteFullPrice: 'Вы уверены что хотите полностью очистить прайс?'
   },
   cell: {
     id: 'ID',

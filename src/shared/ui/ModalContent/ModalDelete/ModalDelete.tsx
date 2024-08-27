@@ -9,6 +9,7 @@ interface ModalDeleteProps {
   cancel: () => void
   agree: () => void
   children: ReactNode
+  isDisabled?: boolean;
 }
 
 export const ModalDelete = (props: ModalDeleteProps) => {
@@ -29,6 +30,7 @@ export const ModalDelete = (props: ModalDeleteProps) => {
         <Button
           theme={'remove'}
           onClick={props.agree}
+          disabled={props.isDisabled}
         >
           {lang.btn.delete}
         </Button>

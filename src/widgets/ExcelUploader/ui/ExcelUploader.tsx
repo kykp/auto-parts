@@ -73,8 +73,13 @@ export const ExcelUploader = () => {
 
         setSelectedHeaders(emptyHeadersInit);
 
-        // Удаляем данные в столбцах с пустыми заголовками
-        const filteredData = jsonData.slice(1).map(row =>
+        // Конвертируем все ячейки в строки
+        const stringifiesData = jsonData.map(row =>
+          row.map(cell => (cell !== null && cell !== undefined) ? String(cell) : "")
+        );
+        // Удал
+        // яем данные в столбцах с пустыми заголовками
+        const filteredData = stringifiesData.slice(1).map(row =>
           row.filter((_: any, index: number) => Boolean(headers[index]))
         );
 

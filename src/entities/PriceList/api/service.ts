@@ -19,8 +19,7 @@ export class PriceList {
     return $api.post('/price-list/bulk-update', {updatedPriceList: data}, {onUploadProgress: onProgress})
   };
 
-  // static bulkUploadPrice = (data: PriceSchemaMutation) => {
-  //   return $api.post('/price-list/bulk-update', {updatedPriceList: data});
-  // }
-
+  static deleteAllPrices = () => {
+    return $api.delete('/price-list/delete-all')
+  }
 }
