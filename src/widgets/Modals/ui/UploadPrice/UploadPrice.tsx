@@ -3,9 +3,10 @@ import {closeModal} from "@/entities/Modals/model/slice/modalsSlice.ts";
 import cls from './Upload.module.scss';
 import {Button} from "@/shared/ui/Button";
 import {lang} from "@/shared/consts/lang.ts";
+import {Alert} from "@/shared/ui/Alert";
 
 export const UploadPrice = (props) => {
-  const {message} = props;
+  const {message, type} = props;
 
   const dispatch = useDispatch();
 
@@ -14,20 +15,20 @@ export const UploadPrice = (props) => {
   }
 
   return (
-    <div className={cls.wrapper}>
 
-      <h2>{lang.title.additionalInfo}</h2>
+    <div className={cls.wrapper}>
       <div className={cls.body}>
-        <span>{message}</span>
+        <Alert type={type}>
+          {message}
+        </Alert>
       </div>
       <div className={cls.buttons}>
         <Button
-          theme={'remove'}
+          theme={type === 'error' ? 'remove': 'primary'}
           onClick={onCancel}
         >
           {lang.btn.close}
         </Button>
-
       </div>
     </div>
   )

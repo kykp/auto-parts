@@ -1,13 +1,14 @@
-import {PriceSchema} from "@/entities/PriceList/model/types.ts";
+import {MainPriceSchemaHeaderKeys, PriceSchema} from "@/entities/PriceList/model/types.ts";
 import {useMemo} from "react";
 
 interface FilteredDataProps {
   data: PriceSchema[];
   q: string;
+  searchBy: MainPriceSchemaHeaderKeys,
 }
 
 export const filteredData = (props: FilteredDataProps) => {
-  const {data, q} = props;
+  const {data, q, searchBy} = props;
 
   const filteredData: PriceSchema[] = useMemo(() => {
     if (!data || !Array.isArray(data)) {
@@ -18,10 +19,12 @@ export const filteredData = (props: FilteredDataProps) => {
       return data;
     }
 
-    const lowercaseQuery = q.toLowerCase();
+    // Разбиваем запрос на отдельные слова
+    const queryWords = q.toLowerCase().split(/\s*\+\s*/);
 
+    // Фильтруем данные, проверяя наличие каждого слова в элементе
     return data.filter((el: PriceSchema) =>
-      el.name.toLowerCase().includes(lowercaseQuery)
+      queryWords.every(word => el[searchBy].toLowerCase().includes(word))
     );
   }, [q, data]);
 

@@ -2,7 +2,11 @@ import {ChangeEvent, useEffect, useState} from 'react';
 import {lang} from "@/shared/consts/lang.ts";
 import {Select} from "@/shared/ui/Field/Select";
 import {clearAdditionalData, openModal} from "@/entities/Modals/model/slice/modalsSlice.ts";
-import {createSelectOptions,} from "@/entities/PriceList/model/types.ts";
+import {
+  createSelectOptions,
+  MainPriceSchemaHeaderKeys,
+  PriceSchemaMutation,
+} from "@/entities/PriceList/model/types.ts";
 import {SelectOptions} from "@/app/types/types.ts";
 import {Button} from "@/shared/ui/Button";
 import {useNavigate} from "react-router-dom";
@@ -15,6 +19,8 @@ import * as XLSX from 'xlsx';
 import cls from './ExcelUploader.module.scss';
 import {useAppSelector} from "@/shared/hooks/useAppSelector";
 import {getModal} from "@/entities/Modals/model/selectors/selector.ts";
+import {useForm} from "react-hook-form";
+import {FieldController} from "@/shared/ui/FieldController";
 
 interface DataRow {
   [key: string]: any;
@@ -34,6 +40,16 @@ export const ExcelUploader = () => {
   const extraChangePrice = additionalData?.myPrice;
 
   const {bulkUpdatePrice} = usePriceList();
+
+  const {watch, control} = useForm();
+
+  const supplierWatcher = watch('supplier');
+
+  useEffect(() => {
+    if (supplierWatcher) {
+
+    }
+  }, []);
 
   const handleModal = () => {
     dispatch(openModal({
@@ -83,7 +99,7 @@ export const ExcelUploader = () => {
           row.filter((_: any, index: number) => Boolean(headers[index]))
         );
 
-        setData(filteredData.slice(0, 10)); // Отображаем первые 10 строк данных (без заголовков)
+        setData(filteredData.slice(0, 5)); // Отображаем первые 10 строк данных (без заголовков)
         setXlsxData(filteredData);
       };
 
@@ -102,18 +118,30 @@ export const ExcelUploader = () => {
   };
 
   const onHandleSubmit = async () => {
-    const newHeaders = selectedHeaders.map(el => el?.value);
+    const newHeaders = selectedHeaders.map((el: SelectOptions<MainPriceSchemaHeaderKeys>) => el?.value);
 
     const dataWithHeaders = xlsxData.map(row => {
-      return newHeaders.reduce((acc: DataRow, header: string, index: number) => {
+      return newHeaders.reduce((acc: PriceSchemaMutation, header: MainPriceSchemaHeaderKeys, index: number) => {
+        const cellValue = row[index];
+
         if (header) { // Проверка на null или пустую строку
-          acc[header] = row[index];
+          acc[header] = cellValue;
         }
 
         if (header === 'purchase_price' && extraChangePrice) {
-          const purchasePrice = parseFloat(row[index]) || 0;
-          acc['price'] = purchasePrice + (purchasePrice * (extraChangePrice / 100));
+          const purchasePrice = parseFloat(cellValue?.replace(/[^\d.-]/g, '')) || 0;
+          acc['purchase_price'] = String(purchasePrice);
+          acc['price'] = String(purchasePrice + (purchasePrice * (extraChangePrice / 100)));
         }
+
+        if (supplierWatcher) {
+          acc['supplier'] = supplierWatcher;
+        }
+
+        acc['min_order_qty'] = cellValue > 1 ? cellValue : 1;
+
+        acc['article'] = cellValue.replace(' ', '');
+
         return acc;
       }, {});
     }).filter(row => Object.keys(row).length > 0);
@@ -130,14 +158,14 @@ export const ExcelUploader = () => {
       if (response) {
         dispatch(openModal({
           modalType: ModalTypes.UploadPrice,
-          modalProps: {message: 'Прайс лист успешно загружен'}
+          modalProps: {message: lang.notification.xlsxSuccess, type: 'successful'}
         }));
       }
 
     } catch (e) {
       dispatch(openModal({
         modalType: ModalTypes.UploadPrice,
-        modalProps: {message: 'Ошибка загрузки прайс листа из ексель файла'}
+        modalProps: {message: lang.notification.uploadXlsx, type: 'error'}
       }));
       console.log('Ошибка загрузки прайс листа из ексель файла', e)
     } finally {
@@ -167,6 +195,13 @@ export const ExcelUploader = () => {
   return (
     <div className={cls.wrapper}>
       <div className={cls.header}>
+        <FieldController.Input
+          name={'supplier'}
+          control={control}
+          label={lang.label.supplier}
+          className={cls.header_supplier}
+          placeholder={lang.placeHolder.supplier}
+        />
         {isShowInput && <input type="file" accept=".xlsx,.xls" onChange={handleFileUpload}/>}
 
         {extraChangePrice && <span>Наценка на текущий прайс = +{extraChangePrice} %</span>}
@@ -189,7 +224,8 @@ export const ExcelUploader = () => {
               <tr>
                 {selectedHeaders.map((header, index) => (
                   <th key={index}>
-                    <Select<SelectOptions<any>>
+                    <Select
+                      <SelectOptions<any>>
                       onChange={(e) => handleHeaderChange(index, e)}
                       value={selectedHeaders[index]}
                       options={freeOptions}

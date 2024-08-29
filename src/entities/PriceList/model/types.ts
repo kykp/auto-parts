@@ -20,9 +20,9 @@ export interface PriceSchemaMutation extends Omit<PriceSchema, 'id'> {
 export type MainPriceSchemaHeaderKeys = keyof PriceSchemaMutation;
 
 // Переводы для ключей
-const translations: Record<MainPriceSchemaHeaderKeys, string> = {
+export const translations: Record<MainPriceSchemaHeaderKeys, string> = {
   article: 'Артикул',
-  name: 'Название',
+  name: 'Наименование',
   brand: 'Бренд',
   delivery_time: 'Время поставки',
   min_order_qty: 'Минимальный ордер',
@@ -30,8 +30,6 @@ const translations: Record<MainPriceSchemaHeaderKeys, string> = {
   supplier: 'Поставщик',
   purchase_price: 'Закупочная цена',
   price: 'Цена',
-
-
 };
 
 // Функция для преобразования ключей в опции

@@ -143,7 +143,7 @@ export const lang = {
     article: 'Артикул',
     image: 'Изображение',
     type: 'Тип',
-    name: 'Название',
+    name: 'Наименование',
     brand: 'Бренд',
     deliveryTime: 'Срок поставки',
     quantity: 'Количество',
@@ -154,6 +154,8 @@ export const lang = {
   },
   notification: {
     resetPasswordEmailSent: 'На вашу почту :EMAIL: отправлено письмо для сброса пароля',
+    uploadXlsx: 'Ошибка загрузки прайс листа из EXCEL файла',
+    xlsxSuccess: 'Прайс лист успешно загружен',
     passwordAttemptsExceeded:
       'Превышено количество попыток ввода пароля. Обратитесь к администратору для восстановления доступа',
     userUnblockedWithName: 'Пользователь userName разблокирован',
@@ -172,6 +174,7 @@ export const lang = {
     statusSelect: 'Выберите статус',
     enterNumber: 'Введите число',
     selectType: 'Выберите тип',
+    supplier: 'Введите название поставщика',
   },
   label: {
     isMain: 'Сделать основным',

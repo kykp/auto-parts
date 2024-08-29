@@ -3,12 +3,14 @@ import {TableConfig} from '@/shared/ui/Table';
 
 import {PriceSchema} from '../model/types.ts';
 import {DropdownList} from '../ui/DropDownList/DropDownList';
+import {ArticleCustom} from "@/entities/PriceList/ui/ArticleCustom/ArticleCustom.tsx";
 
 export const tableConfig = (): TableConfig<PriceSchema> => ({
   cells: [
     {
       name: lang.cell.article,
       dataAnchor: 'article',
+      component: ArticleCustom,
     },
     {
       name: lang.cell.name,

@@ -18,9 +18,10 @@ export const PricePage = () => {
   });
 
   const {query, isLoading, data} = usePriceList();
+
   useRefetch({query})
 
-  const tableData = filteredData({data, q})
+  const tableData = filteredData({data, q, searchBy})
 
   useEffect(() => {
     query();
