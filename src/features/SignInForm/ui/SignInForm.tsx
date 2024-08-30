@@ -13,7 +13,9 @@ import {defaultValues, FormValues} from '../config/form';
 import {resolver} from '../config/resolver';
 import cls from './SignInForm.module.scss';
 import {useUserProfile} from "@/entities/UserProfile/hooks/useUserProfile/useUserProfile.ts";
-import {storeTokens} from "@/entities/UserProfile/lib/storeTokens.ts";
+import {authUtils} from "@/shared/lib/authUtils/authUtils.ts";
+import {profileActions} from "@/entities/UserProfile/model/slices/userProfileSlice.ts";
+import {useAppDispatch} from "@/shared/hooks/useAppDispatch";
 import {useNavigate} from "react-router-dom";
 
 interface SignInFormProps {
@@ -38,10 +40,7 @@ export const SignInForm = (props: SignInFormProps) => {
   const {
     control,
     handleSubmit,
-    // watch,
-    // setError,
     formState: {
-      // errors,
       isSubmitting,
     },
   } = useForm<FormValues>({
@@ -50,19 +49,17 @@ export const SignInForm = (props: SignInFormProps) => {
   });
 
   const {logIn} = useUserProfile();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onSubmit = async (values: FormValues) => {
     try {
       const response = await logIn(values);
 
-      if (response) {
-        const {accessToken, refreshToken} = response.data;
-        storeTokens(accessToken, refreshToken);
+      const {id, email} = authUtils({response})
 
-        navigate('/')
-        console.log('Пользователь успешно авторизован');
-      }
+      dispatch(profileActions.login({isAuth: true, me: {id, email}}));
+      navigate('/')
     } catch (e) {
       console.log('Ошибка авторизации', e)
     }
@@ -71,7 +68,7 @@ export const SignInForm = (props: SignInFormProps) => {
   return (
     <Content className={cls.wrapper}>
       <form onSubmit={handleSubmit(onSubmit)} className={cls.form} noValidate={true}>
-        <h2>Авторизация</h2>
+        <h2>{lang.title.auth}</h2>
         <div className={cls.fields}>
           <div>
             <FieldController.Input

@@ -39,9 +39,11 @@ interface SignProps {
 
 export const Sign = (props: SignProps) => {
   const {login} = props;
+
   const {code} = useSafeParams({
     code: {rules: []},
   });
+
   const [currentScreen, setCurrentScreen] = useState<AuthScreens>(code ? 'newPassword' : 'logIn');
   // const [email, setEmail] = useState<string>('');
   // const [errorMessage, setErrorMessage] = useState<ServerErrorUI | undefined>();

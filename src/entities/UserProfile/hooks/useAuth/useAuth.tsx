@@ -1,35 +1,14 @@
-import {useEffect, useState} from 'react';
-import {destroyCookie, parseCookies} from 'nookies';
-import {useNavigate} from 'react-router-dom';
+import {destroyCookie} from 'nookies';
+import {useAppDispatch} from "@/shared/hooks/useAppDispatch";
+import {profileActions} from "@/entities/UserProfile/model/slices/userProfileSlice.ts";
 
 export const useAuth = () => {
-  const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const navigate = useNavigate();
-  const {accessToken} = parseCookies();
-
-  useEffect(() => {
-    if (accessToken) {
-      // Проводите проверку действительности токена здесь, если необходимо
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-      navigate('/'); // Перенаправляйте на страницу входа, если нет токена
-    }
-    setLoading(false);
-  }, [accessToken]);
+  const dispatch = useAppDispatch();
 
   const logOut = () => {
-    // Удаление токенов
     destroyCookie(null, 'accessToken');
     destroyCookie(null, 'refreshToken');
-    setIsAuthenticated(false);
+    dispatch(profileActions.logout());
   };
-
-  const logIn = () => {
-    setIsAuthenticated(true);
-  }
-
-  return {isAuthenticated, loading, logOut, logIn};
+  return {logOut};
 };

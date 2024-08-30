@@ -1,11 +1,7 @@
 export interface User {
   id: string
-  name: string
+  name?: string
   email: string
-  createdAt: Date
-  loginAt: Date
-  blocked: boolean
-  blockedAt: Date
 }
 
 export interface UserProfileSchema {

@@ -6,8 +6,11 @@ import {Button} from "@/shared/ui/Button";
 import {useForm} from "react-hook-form";
 import {defaultValues, FormValues} from "../../config/form.ts";
 import {resolver} from "../../config/resolver.ts";
-import {storeTokens} from "@/entities/UserProfile/lib/storeTokens.ts";
 import {useCompanyProfile} from "@/entities/CompanyProfile/hooks/useCompanyProfile/useCompanyProfile.ts";
+import {useAppDispatch} from "@/shared/hooks/useAppDispatch";
+import {useNavigate} from "react-router-dom";
+import {authUtils} from "@/shared/lib/authUtils/authUtils.ts";
+import {profileActions} from "@/entities/UserProfile/model/slices/userProfileSlice.ts";
 
 interface RegistrationFormProps {
   // goToRecovery: () => void;
@@ -28,12 +31,14 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
     watch,
     setError,
     formState: {
-      // errors,
       isSubmitting,
     },
   } = useForm<FormValues>({defaultValues, resolver});
 
   const {creatNewCompany} = useCompanyProfile();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
 
   const onSubmit = async (values: FormValues) => {
     if (watchPasOne && watchPasTwo && (watchPasOne !== watchPasTwo)) {
@@ -45,15 +50,11 @@ export const RegistrationForm = (props: RegistrationFormProps) => {
     try {
       const response = await creatNewCompany(formattedUserData)
 
-      if (response) {
-        const {accessToken, refreshToken} = response.data;
-        storeTokens(accessToken, refreshToken);
+      const {id, email} = authUtils({response})
 
-        // Перенаправление или другая логика после успешной регистрации
-        console.log('Пользователь успешно зарегистрирован');
-        login()
-      }
+      dispatch(profileActions.login({isAuth: true, me: {id, email}}));
 
+      navigate('/')
     } catch (e) {
       console.log('Ошибка создания пользователя', e)
     }

@@ -4,23 +4,24 @@ import Layout from "@/app/ui/Layout/Layout.tsx";
 import {RouterProvider} from "@/app/providers/router";
 import {Sign} from "@/widgets/Sign";
 import {Modal} from "@/shared/ui/Modal";
+import {useAppSelector} from "@/shared/hooks/useAppSelector";
+import {getProfile} from "@/entities/UserProfile/model/selectors/getUserProfile/getUserProfile.ts";
 
 export const App = () => {
-  const {isAuthenticated, loading, logOut, logIn} = useAuth();
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const {isAuth} = useAppSelector(getProfile);
+
+  const {logOut} = useAuth();
 
   return (
     <>
-      {isAuthenticated ? (
+      {isAuth ? (
         <Layout logout={logOut}>
           <RouterProvider/>
           <Modal/>
         </Layout>
       ) : (
-        <Sign login={logIn}/>
+        <Sign login={null}/>
       )}
     </>
   )

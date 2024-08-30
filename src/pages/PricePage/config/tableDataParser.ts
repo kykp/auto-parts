@@ -24,9 +24,12 @@ export const filteredData = (props: FilteredDataProps) => {
 
     // Фильтруем данные, проверяя наличие каждого слова в элементе
     return data.filter((el: PriceSchema) =>
-      queryWords.every(word => el[searchBy].toLowerCase().includes(word))
+      queryWords.every(word => {
+        // Убедитесь, что searchBy является корректным ключом для el
+        const value = el[searchBy];
+        return typeof value === 'string' && value.toLowerCase().includes(word);
+      })
     );
-  }, [q, data]);
-
+  }, [q, data, searchBy]);
   return filteredData;
 }

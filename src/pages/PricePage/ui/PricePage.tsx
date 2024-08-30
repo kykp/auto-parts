@@ -2,7 +2,7 @@ import {useEffect} from "react";
 import {useSafeParams} from "@/shared/hooks/useSafeParams";
 import PageConfig from '../config/PageConfig.ts';
 import {PageTable} from '@/widgets/PageTemplates';
-import {PriceSchema} from "@/entities/PriceList/model/types.ts";
+import {MainPriceSchemaHeaderKeys, PriceSchema} from "@/entities/PriceList/model/types.ts";
 import {usePriceList} from "@/entities/PriceList/hooks/usePriceList/usePriceList.ts";
 import {useRefetch} from "@/shared/hooks/useRefetch";
 import {filteredData} from '../config/tableDataParser.ts'
@@ -17,11 +17,13 @@ export const PricePage = () => {
     },
   });
 
+  const searchByKey = searchBy as MainPriceSchemaHeaderKeys;
+
   const {query, isLoading, data} = usePriceList();
 
   useRefetch({query})
 
-  const tableData = filteredData({data, q, searchBy})
+  const tableData = filteredData({ data, q, searchBy: searchByKey });
 
   useEffect(() => {
     query();

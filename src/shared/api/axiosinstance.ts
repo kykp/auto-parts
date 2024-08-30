@@ -1,10 +1,29 @@
 import axios from 'axios';
-import {parseCookies, setCookie} from "nookies";
+import {destroyCookie, parseCookies, setCookie} from "nookies";
+import { UserProfileService } from "@/entities/UserProfile/api/serivce.ts";
 
 // Убедитесь, что URL корректен и включает схему (например, 'http://', 'https://')
 // const BASE_URL = 'http://localhost:3000/'
 const BASE_URL = 'http://87.228.19.167:3000/'
 
+const refreshTokenHandler = async () => {
+  const { refreshToken } = parseCookies();
+
+  if (!refreshToken) {
+    throw new Error('No refresh token available');
+  }
+
+  const response = await UserProfileService.updateToken(refreshToken);
+  const { token } = response.data;
+
+  setCookie(null, 'accessToken', token, {
+    maxAge: 60 * 15, // 15 минут
+    path: '/',
+    sameSite: 'Strict',
+  });
+
+  return token;
+};
 
 const $api = axios.create({
   baseURL: BASE_URL,
@@ -22,27 +41,31 @@ $api.interceptors.response.use(
   response => response,
   async error => {
     const { response, config } = error;
+
     if (response?.status === 401 && !config._retry) {
       config._retry = true;
       try {
-        const { refreshToken } = parseCookies();
-        const { data } = await axios.post(`${BASE_URL}/auth/refresh-token`, { token: refreshToken });
-        const newAccessToken = data.accessToken;
+        const newToken = await refreshTokenHandler();
 
-        setCookie(null, 'accessToken', newAccessToken, {
-          maxAge: 60 * 15, // 15 минут
-          path: '/',
-          sameSite: 'Strict',
-        });
+        // Устанавливаем новый токен для повторного запроса
+        $api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+        config.headers['Authorization'] = `Bearer ${newToken}`;
 
-        $api.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+        // Повторяем запрос с новым токеном
         return $api(config);
       } catch (err) {
-        // Handle refresh token failure, e.g., log out user
         console.error('Failed to refresh token', err);
+
+        // Удаляем токены при неудаче
+        destroyCookie(null, 'accessToken');
+        destroyCookie(null, 'refreshToken');
+
+        // Здесь можно добавить логику логаута пользователя или перенаправление на страницу логина
+        // Например, window.location.href = '/login';
       }
     }
-    return Promise.reject(error);
+
+    return Promise.reject(error);  // Возвращаем отклоненный промис для обработки ошибки
   }
 );
 

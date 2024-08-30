@@ -34,7 +34,6 @@ export const ExcelUploader = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const {additionalData} = useAppSelector(getModal);
 
   const extraChangePrice = additionalData?.myPrice;
@@ -44,12 +43,6 @@ export const ExcelUploader = () => {
   const {watch, control} = useForm();
 
   const supplierWatcher = watch('supplier');
-
-  useEffect(() => {
-    if (supplierWatcher) {
-
-    }
-  }, []);
 
   const handleModal = () => {
     dispatch(openModal({
@@ -121,7 +114,7 @@ export const ExcelUploader = () => {
     const newHeaders = selectedHeaders.map((el: SelectOptions<MainPriceSchemaHeaderKeys>) => el?.value);
 
     const dataWithHeaders = xlsxData.map(row => {
-      return newHeaders.reduce((acc: PriceSchemaMutation, header: MainPriceSchemaHeaderKeys, index: number) => {
+      return newHeaders.reduce<Record<MainPriceSchemaHeaderKeys, any>>((acc, header, index) => {
         const cellValue = row[index];
 
         if (header) { // Проверка на null или пустую строку
@@ -140,10 +133,20 @@ export const ExcelUploader = () => {
 
         acc['min_order_qty'] = cellValue > 1 ? cellValue : 1;
 
-        acc['article'] = cellValue.replace(' ', '');
+        acc['article'] = cellValue?.replace(' ', '');
 
         return acc;
-      }, {});
+      }, {
+        article: undefined,
+        brand: undefined,
+        delivery_time: undefined,
+        min_order_qty: undefined,
+        name: undefined,
+        price: undefined,
+        purchase_price: undefined,
+        quantity: undefined,
+        supplier: undefined
+      });
     }).filter(row => Object.keys(row).length > 0);
 
 

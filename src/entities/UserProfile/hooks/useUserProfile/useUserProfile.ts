@@ -4,9 +4,11 @@ export const useUserProfile = () => {
 
   const createNewUser = UserProfileService.registerNewUser;
   const logIn = UserProfileService.logIn;
+  const updateToken = UserProfileService.updateToken;
 
   return {
     createNewUser,
-    logIn
+    logIn,
+    updateToken,
   }
 }
