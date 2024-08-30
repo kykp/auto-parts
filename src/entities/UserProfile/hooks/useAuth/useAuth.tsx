@@ -59,7 +59,7 @@ export const useAuth = () => {
     };
 
     checkAuthUser();
-  }, [accessToken, refreshToken, dispatch, navigate, verifyAccessToken, updateToken]);
+  }, []);
 
 
   const logOut = () => {
