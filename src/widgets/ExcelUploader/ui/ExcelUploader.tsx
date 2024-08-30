@@ -2,11 +2,7 @@ import {ChangeEvent, useEffect, useState} from 'react';
 import {lang} from "@/shared/consts/lang.ts";
 import {Select} from "@/shared/ui/Field/Select";
 import {clearAdditionalData, openModal} from "@/entities/Modals/model/slice/modalsSlice.ts";
-import {
-  createSelectOptions,
-  MainPriceSchemaHeaderKeys,
-  PriceSchemaMutation,
-} from "@/entities/PriceList/model/types.ts";
+import {createSelectOptions, MainPriceSchemaHeaderKeys,} from "@/entities/PriceList/model/types.ts";
 import {SelectOptions} from "@/app/types/types.ts";
 import {Button} from "@/shared/ui/Button";
 import {useNavigate} from "react-router-dom";
@@ -113,6 +109,7 @@ export const ExcelUploader = () => {
   const onHandleSubmit = async () => {
     const newHeaders = selectedHeaders.map((el: SelectOptions<MainPriceSchemaHeaderKeys>) => el?.value);
 
+    console.log('xlsxData', xlsxData)
     const dataWithHeaders = xlsxData.map(row => {
       return newHeaders.reduce<Record<MainPriceSchemaHeaderKeys, any>>((acc, header, index) => {
         const cellValue = row[index];
@@ -131,22 +128,14 @@ export const ExcelUploader = () => {
           acc['supplier'] = supplierWatcher;
         }
 
+        if (header === 'article') {
+          acc['article'] = cellValue?.replace(' ', '');
+        }
+
         acc['min_order_qty'] = cellValue > 1 ? cellValue : 1;
 
-        acc['article'] = cellValue?.replace(' ', '');
-
         return acc;
-      }, {
-        article: undefined,
-        brand: undefined,
-        delivery_time: undefined,
-        min_order_qty: undefined,
-        name: undefined,
-        price: undefined,
-        purchase_price: undefined,
-        quantity: undefined,
-        supplier: undefined
-      });
+      }, {});
     }).filter(row => Object.keys(row).length > 0);
 
 

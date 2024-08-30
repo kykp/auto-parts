@@ -1,13 +1,13 @@
-import { Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {Suspense} from 'react';
+import {Route, Routes} from 'react-router-dom';
 
-import { ErrorPage } from '@/pages/ErrorPage';
+import {ErrorPage} from '@/pages/ErrorPage';
 
-import { BreadcrumbConsumer } from '@/entities/Breadcrumbs';
+import {BreadcrumbConsumer} from '@/entities/Breadcrumbs';
 
-import { PageLoader } from '@/shared/ui/PageLoader';
+import {PageLoader} from '@/shared/ui/PageLoader';
 
-import { appRoutes } from '../model/router';
+import {appRoutes} from '../model/router';
 
 export const RouterProvider = () => {
   return (
@@ -18,16 +18,16 @@ export const RouterProvider = () => {
           path={Item.path}
           element={
             <BreadcrumbConsumer path={Item.path ?? ''}>
-              <Suspense fallback={<PageLoader />}>
+              <Suspense fallback={<PageLoader/>}>
                 {(Item.Component) && (
-                  <Item.Component />
+                  <Item.Component/>
                 )}
               </Suspense>
             </BreadcrumbConsumer>
           }
         />
       ))}
-      <Route path='*' element={<ErrorPage />} />
+      <Route path='*' element={<ErrorPage/>}/>
     </Routes>
   );
 };

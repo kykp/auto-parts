@@ -24,4 +24,8 @@ export class UserProfileService {
   static updateToken = (token: string): Promise<AxiosResponse<UpdateTokenResponse>> => {
     return $api.post('/auth/update-token', {token});
   }
+
+  static verifyAccessToken = (): Promise<AxiosResponse<UserLoginResponse>> => {
+    return $api.post('/auth/verify-user')
+  }
 }

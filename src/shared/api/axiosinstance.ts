@@ -45,11 +45,12 @@ $api.interceptors.response.use(
     if (response?.status === 401 && !config._retry) {
       config._retry = true;
       try {
-        const newToken = await refreshTokenHandler();
+        const response = await refreshTokenHandler();
 
+        console.log('response', response);
         // Устанавливаем новый токен для повторного запроса
-        $api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
-        config.headers['Authorization'] = `Bearer ${newToken}`;
+        // $api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+        // config.headers['Authorization'] = `Bearer ${newToken}`;
 
         // Повторяем запрос с новым токеном
         return $api(config);
