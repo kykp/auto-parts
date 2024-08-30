@@ -3,14 +3,10 @@ import $api from "@/shared/api/axiosinstance.ts";
 import {AxiosResponse} from "axios";
 
 interface UpdateTokenResponse {
-  message: string;
-  token:  {
-    createdAt: Date;
-    token: string;
-    updatedAt: Date;
-    userId: number;
-    email: string;
-  };
+  message: string
+  accessToken: string;
+  id: number;
+  email: string;
 }
 
 export interface UserLoginResponse extends Omit<User, 'name'> {
@@ -19,10 +15,11 @@ export interface UserLoginResponse extends Omit<User, 'name'> {
 }
 
 interface UserVerifyResponse {
-  message: string
-  accessToken: string;
-  id: number;
-  email: string;
+  message: string;
+  user: {
+    email: string;
+    id: number;
+  }
 }
 
 export class UserProfileService {

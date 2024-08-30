@@ -23,6 +23,7 @@ export const useAuth = () => {
 
         if (accessToken) {
           const response = await verifyAccessToken();
+
           if (response.status === 200) {
             const {user} = response.data;
             dispatch(profileActions.login({isAuth: true, me: {id: String(user.id), email: user.email}}));
