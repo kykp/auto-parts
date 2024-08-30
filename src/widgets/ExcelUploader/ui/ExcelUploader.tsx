@@ -109,7 +109,6 @@ export const ExcelUploader = () => {
   const onHandleSubmit = async () => {
     const newHeaders = selectedHeaders.map((el: SelectOptions<MainPriceSchemaHeaderKeys>) => el?.value);
 
-    console.log('xlsxData', xlsxData)
     const dataWithHeaders = xlsxData.map(row => {
       return newHeaders.reduce<Record<MainPriceSchemaHeaderKeys, any>>((acc, header, index) => {
         const cellValue = row[index];
@@ -135,7 +134,17 @@ export const ExcelUploader = () => {
         acc['min_order_qty'] = cellValue > 1 ? cellValue : 1;
 
         return acc;
-      }, {});
+      }, {
+        article: undefined,
+        brand: undefined,
+        delivery_time: undefined,
+        min_order_qty: undefined,
+        name: undefined,
+        price: undefined,
+        purchase_price: undefined,
+        quantity: undefined,
+        supplier: undefined
+      });
     }).filter(row => Object.keys(row).length > 0);
 
 

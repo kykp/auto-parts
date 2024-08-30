@@ -6,12 +6,17 @@ import {Sign} from "@/widgets/Sign";
 import {Modal} from "@/shared/ui/Modal";
 import {useAppSelector} from "@/shared/hooks/useAppSelector";
 import {getProfile} from "@/entities/UserProfile/model/selectors/getUserProfile/getUserProfile.ts";
+import {PageLoader} from "@/shared/ui/PageLoader";
 
 export const App = () => {
 
   const {isAuth} = useAppSelector(getProfile);
 
-  const {logOut} = useAuth();
+  const {logOut, isLoading} = useAuth();
+
+  if (isLoading) {
+    return <PageLoader/>
+  }
 
   return (
     <>

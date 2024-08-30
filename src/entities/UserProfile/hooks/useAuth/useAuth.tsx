@@ -1,86 +1,70 @@
-import {destroyCookie, parseCookies} from 'nookies';
+import {destroyCookie, parseCookies, setCookie} from 'nookies';
 import {useAppDispatch} from "@/shared/hooks/useAppDispatch";
 import {profileActions} from "@/entities/UserProfile/model/slices/userProfileSlice.ts";
 import {useNavigate} from "react-router-dom";
 import {useUserProfile} from "@/entities/UserProfile/hooks/useUserProfile/useUserProfile.ts";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 export const useAuth = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const {verifyAccessToken} = useUserProfile();
+  const {verifyAccessToken, updateToken} = useUserProfile();
 
+  const cookies = parseCookies();
+  const accessToken = cookies.accessToken;
+  const refreshToken = cookies.refreshToken;
 
   useEffect(() => {
-
     const checkAuthUser = async () => {
-      const cookies = parseCookies();
-      const accessToken = cookies.accessToken || '';
-      const refreshToken = cookies.refreshToken || '';
+      try {
 
-      if (accessToken) {
-        const response = await verifyAccessToken();
-        console.log('response,', response)
+        if (accessToken) {
+          const response = await verifyAccessToken();
+          if (response.status === 200) {
+            const {user} = response.data;
+            dispatch(profileActions.login({isAuth: true, me: {id: String(user.id), email: user.email}}));
+            return; // Останавливаем выполнение, если токен валиден
+          }
+        }
+
+        //Если при перезагрузке старница у нас закончился accessToken но есть refresh
+        if (refreshToken) {
+          const response = await updateToken(refreshToken);
+
+          if (response.status === 200) {
+            const {accessToken, id, email} = response.data;
+
+            setCookie(null, 'accessToken', accessToken, {
+              maxAge: 60 * 15, // 15 минут
+              path: '/',
+              sameSite: 'Strict',
+            });
+
+            dispatch(profileActions.login({isAuth: true, me: {id: String(id), email}}));
+            return; // Останавливаем выполнение, если обновление токена успешно
+          }
+        }
+
+        navigate('/login'); // Перенаправляем, если не удалось обновить токен
+      } catch (error) {
+        console.error('Authentication error:', error);
+        navigate('/login'); // Перенаправляем в случае ошибки
+      } finally {
+        setIsLoading(false); // Убираем индикатор загрузки в любом случае
       }
-    }
+    };
 
     checkAuthUser();
+  }, [accessToken, refreshToken, dispatch, navigate, verifyAccessToken, updateToken]);
 
-  }, []);
-
-  // useEffect(() => {
-  //   const authenticateUser = async () => {
-  //     const accessToken = localStorage.getItem('accessToken');
-  //     const refreshToken = localStorage.getItem('refreshToken');
-  //
-  //     if (accessToken) {
-  //       // Проверяем, действителен ли accessToken
-  //       try {
-  //         // Предположим, что есть функция для проверки токена
-  //         await verifyAccessToken(accessToken);
-  //         dispatch(profileActions.login({ isAuth: true, me: { /* user info */ } }));
-  //       } catch (error) {
-  //         // Если accessToken недействителен, используем refreshToken
-  //         if (refreshToken) {
-  //           try {
-  //             const response = await fetchNewAccessToken(refreshToken);
-  //             localStorage.setItem('accessToken', response.data.accessToken);
-  //             dispatch(profileActions.login({ isAuth: true, me: { /* user info */ } }));
-  //           } catch (err) {
-  //             // Если не удается обновить токен, выходим из системы
-  //             dispatch(profileActions.logout());
-  //           }
-  //         } else {
-  //           dispatch(profileActions.logout());
-  //         }
-  //       }
-  //     } else {
-  //       dispatch(profileActions.logout());
-  //     }
-  //   };
-  //
-  //   authenticateUser();
-  // }, []);
-
-
-  // useEffect(() => {
-  //
-  //   const cookie = parseCookies();
-  //
-  //   console.log('cookie', cookie)
-  //   if (user) {
-  //     const parsedUser = JSON.parse(user);
-  //     dispatch(profileActions.login({isAuth: true, me: parsedUser}));
-  //   } else {
-  //     navigate('/login'); // Redirect to login if not authenticated
-  //   }
-  // }, []);
 
   const logOut = () => {
     destroyCookie(null, 'accessToken');
     destroyCookie(null, 'refreshToken');
     dispatch(profileActions.logout());
   };
-  return {logOut};
+  return {logOut, isLoading};
 };

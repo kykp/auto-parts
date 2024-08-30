@@ -37,37 +37,4 @@ $api.interceptors.request.use(config => {
   return config;
 });
 
-$api.interceptors.response.use(
-  response => response,
-  async error => {
-    const { response, config } = error;
-
-    if (response?.status === 401 && !config._retry) {
-      config._retry = true;
-      try {
-        const response = await refreshTokenHandler();
-
-        console.log('response', response);
-        // Устанавливаем новый токен для повторного запроса
-        // $api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
-        // config.headers['Authorization'] = `Bearer ${newToken}`;
-
-        // Повторяем запрос с новым токеном
-        return $api(config);
-      } catch (err) {
-        console.error('Failed to refresh token', err);
-
-        // Удаляем токены при неудаче
-        destroyCookie(null, 'accessToken');
-        destroyCookie(null, 'refreshToken');
-
-        // Здесь можно добавить логику логаута пользователя или перенаправление на страницу логина
-        // Например, window.location.href = '/login';
-      }
-    }
-
-    return Promise.reject(error);  // Возвращаем отклоненный промис для обработки ошибки
-  }
-);
-
 export default $api;

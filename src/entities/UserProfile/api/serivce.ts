@@ -4,12 +4,25 @@ import {AxiosResponse} from "axios";
 
 interface UpdateTokenResponse {
   message: string;
-  token: string;
+  token:  {
+    createdAt: Date;
+    token: string;
+    updatedAt: Date;
+    userId: number;
+    email: string;
+  };
 }
 
-export interface UserLoginResponse extends Omit<User, 'name'>{
+export interface UserLoginResponse extends Omit<User, 'name'> {
   accessToken: string
   refreshToken: string;
+}
+
+interface UserVerifyResponse {
+  message: string
+  accessToken: string;
+  id: number;
+  email: string;
 }
 
 export class UserProfileService {
@@ -25,7 +38,7 @@ export class UserProfileService {
     return $api.post('/auth/update-token', {token});
   }
 
-  static verifyAccessToken = (): Promise<AxiosResponse<UserLoginResponse>> => {
+  static verifyAccessToken = (): Promise<AxiosResponse<UserVerifyResponse>> => {
     return $api.post('/auth/verify-user')
   }
 }
