@@ -9,10 +9,11 @@
   flex-direction: column;
   gap: 10px;
 
-  & th  {
+  & th {
     padding-left: 10px;
     min-width: 180px;
   }
+
   & td {
     padding-top: 10px;
     padding-left: 10px;
@@ -20,21 +21,52 @@
   }
 }
 
-.header{
+.header {
   margin: 25px auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
+
 .header_supplier {
   max-width: 300px;
 }
+
 .button {
   max-width: 100px;
 }
+
 .buttons {
   display: flex;
   gap: 20px;
   width: 150px;
   margin: 20px auto;
 }
+
+
+.custom_file_upload {
+  display: inline-block;
+  max-width: 300px;
+  text-align: center;
+  padding: 10px 20px;
+  background-color: var(--color-main); /* Зеленый цвет фона */
+  color: white; /* Цвет текста */
+  cursor: pointer;
+  border-radius: 5px; /* Закругленные углы */
+  font-size: 16px; /* Размер шрифта */
+  transition: background-color 0.3s ease, opacity 0.3s ease; /* Плавное изменение цвета фона */
+
+  &:hover {
+    background-color: var(--color-main); /* Изменение цвета при наведении */
+    opacity: 0.8;
+  }
+
+  &:active {
+    background-color: var(--color-main); /* Изменение цвета при нажатии */
+  }
+}
+
+.custom_file_upload input[type="file"] {
+  display: none; /* Скрываем стандартный input */
+}
+

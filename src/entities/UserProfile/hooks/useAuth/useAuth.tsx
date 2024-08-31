@@ -49,10 +49,10 @@ export const useAuth = () => {
           }
         }
 
-        navigate('/login'); // Перенаправляем, если не удалось обновить токен
+        navigate('/'); // Перенаправляем, если не удалось обновить токен
       } catch (error) {
         console.error('Authentication error:', error);
-        navigate('/login'); // Перенаправляем в случае ошибки
+        navigate('/'); // Перенаправляем в случае ошибки
       } finally {
         setIsLoading(false); // Убираем индикатор загрузки в любом случае
       }

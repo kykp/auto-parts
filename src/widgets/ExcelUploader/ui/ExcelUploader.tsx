@@ -12,11 +12,13 @@ import {useDispatch} from "react-redux";
 import {ModalTypes} from "@/widgets/Modals";
 
 import * as XLSX from 'xlsx';
-import cls from './ExcelUploader.module.scss';
 import {useAppSelector} from "@/shared/hooks/useAppSelector";
 import {getModal} from "@/entities/Modals/model/selectors/selector.ts";
 import {useForm} from "react-hook-form";
 import {FieldController} from "@/shared/ui/FieldController";
+import {InfoHeaderBlock} from "./InfoHeaderBlock/InfoHeaderBlock.tsx";
+
+import cls from './ExcelUploader.module.scss';
 
 interface DataRow {
   [key: string]: any;
@@ -33,12 +35,19 @@ export const ExcelUploader = () => {
   const {additionalData} = useAppSelector(getModal);
 
   const extraChangePrice = additionalData?.myPrice;
-
-  const {bulkUpdatePrice} = usePriceList();
-
   const {watch, control} = useForm();
 
   const supplierWatcher = watch('supplier');
+
+  const isArticleSelected = selectedHeaders.some(el => el.value === 'article');
+  const isNameSelected = selectedHeaders.some(el => el.value === 'name');
+  const isSupplierSelected = selectedHeaders.some(el => el.value === 'supplier') || supplierWatcher;
+
+  const isButtonDisabled = !isArticleSelected || !isNameSelected || !isSupplierSelected;
+
+  const {bulkUpdatePrice} = usePriceList();
+
+
 
   const handleModal = () => {
     dispatch(openModal({
@@ -128,7 +137,7 @@ export const ExcelUploader = () => {
         }
 
         if (header === 'article') {
-          acc['article'] = cellValue?.replace(' ', '');
+          acc['article'] = cellValue.replace(' ', '');
         }
 
         acc['min_order_qty'] = cellValue > 1 ? cellValue : 1;
@@ -195,6 +204,11 @@ export const ExcelUploader = () => {
 
   return (
     <div className={cls.wrapper}>
+      <InfoHeaderBlock
+        isArticleSelected={isArticleSelected}
+        isNameSelected={isNameSelected}
+        isSupplierSelected={isSupplierSelected}
+      />
       <div className={cls.header}>
         <FieldController.Input
           name={'supplier'}
@@ -203,8 +217,12 @@ export const ExcelUploader = () => {
           className={cls.header_supplier}
           placeholder={lang.placeHolder.supplier}
         />
-        {isShowInput && <input type="file" accept=".xlsx,.xls" onChange={handleFileUpload}/>}
-
+        {isShowInput && (
+          <label className={cls.custom_file_upload}>
+            Добавить xls документ
+            <input type="file" accept=".xlsx,.xls" onChange={handleFileUpload}/>
+          </label>
+        )}
         {extraChangePrice && <span>Наценка на текущий прайс = +{extraChangePrice} %</span>}
 
         {isShowPercentAdditionalPrice &&
@@ -248,6 +266,7 @@ export const ExcelUploader = () => {
             <div className={cls.buttons}>
               <Button
                 onClick={onHandleSubmit}
+                disabled={isButtonDisabled}
               > {lang.btn.save}
               </Button>
               <Button
