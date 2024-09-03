@@ -29,7 +29,6 @@ export const ExcelUploader = () => {
   const [xlsxData, setXlsxData] = useState<DataRow[]>([]);
   const [data, setData] = useState<DataRow[]>([]);
   const [selectedHeaders, setSelectedHeaders] = useState<SelectOptions[]>([]);
-  const [uploadProgress, setUploadProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -201,7 +200,7 @@ export const ExcelUploader = () => {
   }, [isShowPercentAdditionalPrice])
 
   if (isLoading) {
-    return <Loader progress={uploadProgress}/>
+    return <Loader/>
   }
 
   return (
