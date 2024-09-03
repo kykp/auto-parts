@@ -156,6 +156,7 @@ export const lang = {
     resetPasswordEmailSent: 'На вашу почту :EMAIL: отправлено письмо для сброса пароля',
     uploadXlsx: 'Ошибка загрузки прайс листа из EXCEL файла',
     xlsxSuccess: 'Прайс лист успешно загружен',
+    xlsxSuccessDownloaded: 'Прайс лист успешно загружен',
     passwordAttemptsExceeded:
       'Превышено количество попыток ввода пароля. Обратитесь к администратору для восстановления доступа',
     userUnblockedWithName: 'Пользователь userName разблокирован',

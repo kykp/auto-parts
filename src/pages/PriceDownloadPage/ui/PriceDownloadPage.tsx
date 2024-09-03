@@ -11,12 +11,8 @@ import {usePriceList} from "@/entities/PriceList/hooks/usePriceList/usePriceList
 import {xlsxCreator} from "@/pages/PriceDownloadPage/config/xlsxCreator.ts";
 import {useNavigate} from "react-router-dom";
 import {routePaths} from "@/app/providers/router";
-import {Loader} from "@/shared/ui/Loader";
-import {useState} from "react";
 
 export const PriceDownloadPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const {control, watch, handleSubmit} = useForm({})
 
   const usedHeaders = watch().headers;
@@ -26,7 +22,6 @@ export const PriceDownloadPage = () => {
   const navigator = useNavigate();
 
   const onSubmit = async (data) => {
-    setIsLoading(true)
     try {
       const selectedHeaders = data?.headers?.map(item => item.value);
 
@@ -36,12 +31,7 @@ export const PriceDownloadPage = () => {
     } catch (e) {
       console.log('Ошибка выгрузки данных в xlsx', e)
     } finally {
-      setIsLoading(false)
     }
-  }
-
-  if (isLoading) {
-    return <Loader/>
   }
 
   return (
