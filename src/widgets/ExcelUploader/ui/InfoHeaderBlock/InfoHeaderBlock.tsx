@@ -31,7 +31,7 @@ export const InfoHeaderBlock = (props: InfoHeaderBlockProps) => {
 
   return (
     <div className={cls.info}>
-      <div className={cls.info_header}>
+      <div>
         <h3>Необходимо выбрать обязательные данные</h3>
       </div>
       <div className={cls.info_body}>

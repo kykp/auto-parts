@@ -1,9 +1,10 @@
-import clsx from 'clsx';
 
 import { _perPageList } from '@/app/types/config';
 
 import { lang } from '@/shared/consts/lang';
 import { PerPageItem } from '@/shared/ui/PerPage/PerPageItem';
+
+import cls from './PerPageItem.module.scss';
 
 interface PerPageProps {
   className?: string
@@ -26,7 +27,7 @@ export const PerPage = (props: PerPageProps) => {
   }
 
   return (
-    <div className={clsx(className || '')}>
+    <div className={cls.wrapper}>
       <span>{lang.text.perPage}</span>
       {list.map(el => (
         <PerPageItem

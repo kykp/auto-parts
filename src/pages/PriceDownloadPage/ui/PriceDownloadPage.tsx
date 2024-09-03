@@ -26,7 +26,7 @@ export const PriceDownloadPage = () => {
       const selectedHeaders = data?.headers?.map(item => item.value);
 
       const requestData = await query();
-      xlsxCreator(requestData, selectedHeaders);
+      xlsxCreator(requestData.priceList, selectedHeaders);
       navigator(routePaths.prices);
     } catch (e) {
       console.log('Ошибка выгрузки данных в xlsx', e)

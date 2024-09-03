@@ -19,6 +19,7 @@ import {FieldController} from "@/shared/ui/FieldController";
 import {InfoHeaderBlock} from "./InfoHeaderBlock/InfoHeaderBlock.tsx";
 
 import cls from './ExcelUploader.module.scss';
+import {Loader} from "@/shared/ui/Loader";
 
 interface DataRow {
   [key: string]: any;
@@ -29,6 +30,7 @@ export const ExcelUploader = () => {
   const [data, setData] = useState<DataRow[]>([]);
   const [selectedHeaders, setSelectedHeaders] = useState<SelectOptions[]>([]);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,7 +48,6 @@ export const ExcelUploader = () => {
   const isButtonDisabled = !isArticleSelected || !isNameSelected || !isSupplierSelected;
 
   const {bulkUpdatePrice} = usePriceList();
-
 
 
   const handleModal = () => {
@@ -116,6 +117,7 @@ export const ExcelUploader = () => {
   };
 
   const onHandleSubmit = async () => {
+    setIsLoading(true);
     const newHeaders = selectedHeaders.map((el: SelectOptions<MainPriceSchemaHeaderKeys>) => el?.value);
 
     const dataWithHeaders = xlsxData.map(row => {
@@ -137,7 +139,7 @@ export const ExcelUploader = () => {
         }
 
         if (header === 'article') {
-          acc['article'] = cellValue.replace(' ', '');
+          acc['article'] = typeof cellValue === 'string' ? cellValue.replace(/\s+/g, '') : '';
         }
 
         acc['min_order_qty'] = cellValue > 1 ? cellValue : 1;
@@ -158,12 +160,7 @@ export const ExcelUploader = () => {
 
 
     try {
-      const response = await bulkUpdatePrice(dataWithHeaders as any, (progressEvent) => {
-        if (progressEvent.total) {
-          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-          setUploadProgress(progress);
-        }
-      });
+      const response = await bulkUpdatePrice(dataWithHeaders as any);
 
       if (response) {
         dispatch(openModal({
@@ -180,6 +177,7 @@ export const ExcelUploader = () => {
       console.log('Ошибка загрузки прайс листа из ексель файла', e)
     } finally {
       dispatch(clearAdditionalData());
+      setIsLoading(false)
     }
   };
 
@@ -201,6 +199,10 @@ export const ExcelUploader = () => {
       handleModal();
     }
   }, [isShowPercentAdditionalPrice])
+
+  if (isLoading) {
+    return <Loader progress={uploadProgress}/>
+  }
 
   return (
     <div className={cls.wrapper}>

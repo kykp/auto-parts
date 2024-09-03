@@ -13,6 +13,7 @@ export const DeletePriceItem = (props: DropdownListProps) => {
   const dispatch = useDispatch();
 
   const {deleteElement} = usePriceList();
+
   const {startRefetch} = useRefetch();
 
   const onCancel = () => {

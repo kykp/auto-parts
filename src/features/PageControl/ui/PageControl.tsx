@@ -1,6 +1,7 @@
 import { useEaseSearchParams } from '@/shared/hooks/useEaseSearchParams';
 import { Pagination } from '@/shared/ui/Pagination';
 import { PerPage } from '@/shared/ui/PerPage';
+import cls from './PageControl.module.scss';
 
 interface PageControlProps {
   page?: string
@@ -31,7 +32,7 @@ export const PageControl = (props: PageControlProps) => {
   };
 
   return (
-    <div >
+    <div className={cls.wrapper}>
       <Pagination
         total={total}
         page={page}

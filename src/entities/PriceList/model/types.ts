@@ -1,5 +1,19 @@
 import {SelectOptions} from "@/app/types/types.ts";
 
+export interface PriceListResponse {
+  priceList: PriceSchema[];
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+}
+
+export interface ParamsGetPriceList {
+  page: number;
+  limit: number;
+  searchBy?: string;
+  q?: string;
+}
+
 export interface PriceSchema {
   id: number;
   article: string;
@@ -25,7 +39,7 @@ export const translations: Record<MainPriceSchemaHeaderKeys, string> = {
   name: 'Наименование',
   brand: 'Бренд',
   delivery_time: 'Время поставки',
-  min_order_qty: 'Минимальный ордер',
+  min_order_qty: 'Минимальный заказ',
   quantity: 'Количество',
   supplier: 'Поставщик',
   purchase_price: 'Закупочная цена',

@@ -3,6 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 import { getPaginationStack } from '@/shared/lib/getPaginationStack';
 import { Button } from '@/shared/ui/Button';
 import { ArrowLeftIcon, ArrowRightIcon } from '@/shared/Icon';
+import cls from './Pagination.module.scss';
 
 interface PaginationProps {
   total?: number
@@ -52,7 +53,7 @@ export const Pagination = (props: PaginationProps) => {
   const handler = (cb: () => void) => isLoading ? () => {} : () => cb();
 
   return (
-    <div>
+    <div className={cls.wrapper}>
       <Button
         mode={'box'}
         theme={'clear'}
@@ -66,7 +67,7 @@ export const Pagination = (props: PaginationProps) => {
           key={`${el}-${i}`}
           mode={'box'}
           disabled={el === '...' || isLoading}
-          theme={el === page ? 'secondary' : 'white'}
+          theme={el === page ? 'primary' : 'white'}
           onClick={handler(() => setPage(`${el}`))}
         >
           {el}

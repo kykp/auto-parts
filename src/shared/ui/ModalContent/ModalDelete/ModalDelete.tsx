@@ -21,9 +21,7 @@ export const ModalDelete = (props: ModalDeleteProps) => {
       </div>
 
       <div className={cls.body}>
-        <p>
           {props.children}
-        </p>
       </div>
 
       <div className={cls.buttons}>
