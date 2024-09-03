@@ -2,6 +2,9 @@ import {MainPriceSchemaHeaderKeys, PriceSchemaMutation, translations} from "@/en
 import * as XLSX from "xlsx";
 
 export const xlsxCreator = (data: PriceSchemaMutation[], selectedHeaders: MainPriceSchemaHeaderKeys[]) => {
+
+  console.log('data', data)
+  console.log('selectedHeaders', selectedHeaders)
   // Функция для изменения порядка ключей
   const reorderKeys = (data: PriceSchemaMutation[], order: MainPriceSchemaHeaderKeys[]): any[] => {
     return data.map(item => {

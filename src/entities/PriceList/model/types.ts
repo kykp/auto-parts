@@ -7,6 +7,9 @@ export interface PriceListResponse {
   totalItems: number;
 }
 
+export interface FullPriceListResponse  extends  Pick<PriceListResponse, 'priceList'>{
+}
+
 export interface ParamsGetPriceList {
   page: number;
   limit: number;
