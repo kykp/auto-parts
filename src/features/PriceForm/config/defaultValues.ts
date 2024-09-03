@@ -5,9 +5,9 @@ export const defaultValues: FormValues = {
   name: '',
   brand: '',
   delivery_time: '',
-  min_order_qty: '',
-  quantity: '',
+  min_order_qty: 1,
+  quantity: 0,
   supplier: '',
-  price: '',
-  purchase_price: '',
+  price: 0,
+  purchase_price: 0,
 }

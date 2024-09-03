@@ -20,11 +20,11 @@ export interface PriceSchema {
   name: string;
   brand: string;
   delivery_time: string;
-  min_order_qty: string;
-  quantity: string;
+  min_order_qty: number;
+  quantity: number;
   supplier: string;
-  price: string;
-  purchase_price: string;
+  price: number;
+  purchase_price: number;
 }
 
 export interface PriceSchemaMutation extends Omit<PriceSchema, 'id'> {

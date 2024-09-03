@@ -91,8 +91,7 @@ export const ExcelUploader = () => {
         const stringifiesData = jsonData.map(row =>
           row.map(cell => (cell !== null && cell !== undefined) ? String(cell) : "")
         );
-        // Удал
-        // яем данные в столбцах с пустыми заголовками
+        // Удаляем данные в столбцах с пустыми заголовками
         const filteredData = stringifiesData.slice(1).map(row =>
           row.filter((_: any, index: number) => Boolean(headers[index]))
         );
@@ -127,10 +126,30 @@ export const ExcelUploader = () => {
           acc[header] = cellValue;
         }
 
+        // Если header == 'purchase_price'
         if (header === 'purchase_price' && extraChangePrice) {
           const purchasePrice = parseFloat(cellValue?.replace(/[^\d.-]/g, '')) || 0;
-          acc['purchase_price'] = String(purchasePrice);
-          acc['price'] = String(purchasePrice + (purchasePrice * (extraChangePrice / 100)));
+          const roundedPurchasePrice = Math.round(purchasePrice);
+          acc['purchase_price'] = roundedPurchasePrice;
+          acc['price'] = Math.round(roundedPurchasePrice + (roundedPurchasePrice * (extraChangePrice / 100)));
+        }
+
+        // Преобразование price в целое число
+        if (header === 'price') {
+          const priceValue = parseFloat(cellValue?.replace(/[^\d.-]/g, '')) || 0;
+          acc['price'] = Math.round(priceValue);
+        }
+
+        // Преобразование quantity в целое число
+        if (header === 'quantity') {
+          const quantityValue = parseFloat(cellValue?.replace(/[^\d.-]/g, '')) || 0;
+          acc['quantity'] = Math.round(quantityValue);
+        }
+
+        // Преобразование min_order_qty в целое число, и установка значения минимум 1
+        if (header === 'min_order_qty') {
+          const minOrderQtyValue = parseFloat(cellValue?.replace(/[^\d.-]/g, '')) || 0;
+          acc['min_order_qty'] = Math.max(Math.round(minOrderQtyValue), 1);
         }
 
         if (supplierWatcher) {
@@ -140,8 +159,6 @@ export const ExcelUploader = () => {
         if (header === 'article') {
           acc['article'] = typeof cellValue === 'string' ? cellValue.replace(/\s+/g, '') : '';
         }
-
-        acc['min_order_qty'] = cellValue > 1 ? cellValue : 1;
 
         return acc;
       }, {

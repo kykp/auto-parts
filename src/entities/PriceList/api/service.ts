@@ -1,6 +1,5 @@
 import $api from "@/shared/api/axiosinstance.ts";
-import {PriceListResponse, PriceSchemaMutation} from "@/entities/PriceList/model/types.ts";
-import axios, {AxiosResponse} from "axios";
+import {PriceSchemaMutation} from "@/entities/PriceList/model/types.ts";
 
 export class PriceList {
 
@@ -19,7 +18,6 @@ export class PriceList {
   static bulkUploadPrice = (data: PriceSchemaMutation) => {
     return $api.post('/price-list/bulk-update', {updatedPriceList: data})
   };
-
 
   static deleteAllPrices = () => {
     return $api.delete('/price-list/delete-all')

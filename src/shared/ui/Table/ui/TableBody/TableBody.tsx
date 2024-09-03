@@ -38,7 +38,7 @@ const TableBodyCell = <Data,>(props: TableBodyCellProps<Data>) => {
       {Component ? (
         <Component {...{ value: valueWithDecorator, row }} />
       ) : (
-        <div>{typeof valueWithDecorator === 'string' ? valueWithDecorator : ''}</div>
+        <div>{valueWithDecorator}</div>
       )}
     </td>
   );

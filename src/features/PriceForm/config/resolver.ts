@@ -78,13 +78,13 @@ export const resolver: Resolver<FormValues> = async (values) => {
   errors = validateString('name', values.name, errors, 255);
   errors = validateString('brand', values.brand, errors, 255);
   errors = validateString('delivery_time', values.delivery_time, errors, 255);
-  errors = validateString('min_order_qty', values.min_order_qty, errors, 255);
-  errors = validateString('quantity', values.quantity, errors, 255);
   errors = validateString('supplier', values.supplier, errors, 255);
 
   // Validate numeric fields
   errors = validateNumber('price', values.price, errors);
   errors = validateNumber('purchase_price', values.purchase_price, errors);
+  errors = validateNumber('min_order_qty', values.min_order_qty, errors);
+  errors = validateNumber('quantity', values.quantity, errors);
 
   return { values, errors };
 };

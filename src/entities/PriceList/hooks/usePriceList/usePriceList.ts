@@ -1,6 +1,7 @@
 import {useFetch} from "@/shared/hooks/useFetch";
 import {PriceList} from "@/entities/PriceList/api/service.ts";
 import {ParamsGetPriceList, PriceListResponse, PriceSchema} from "../../model/types.ts";
+import $api from "@/shared/api/axiosinstance.ts";
 
 interface UsePriceListProps {
   id?: string;
@@ -12,6 +13,8 @@ export const usePriceList = (props: UsePriceListProps = {}) => {
   const {data, query, error, isLoading, } = useFetch<PriceListResponse, ParamsGetPriceList>('/price-list/price');
 
   const {data: dataById, query: queryById, isLoading: isLoadingById} = useFetch<PriceSchema>(`/price-list/${id}`);
+
+  const {data: fullPriceData, query: fullPriceQuery} = useFetch<PriceSchema[]>('/price-list/price/export');
 
   const deleteElement = PriceList.deletePriceElement;
   const createElement = PriceList.createPriceElement;
@@ -32,5 +35,7 @@ export const usePriceList = (props: UsePriceListProps = {}) => {
     updateElement,
     bulkUpdatePrice,
     deletePrice,
+    fullPriceData,
+    fullPriceQuery,
   }
 }
