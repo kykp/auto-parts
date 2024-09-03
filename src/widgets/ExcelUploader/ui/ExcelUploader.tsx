@@ -20,6 +20,7 @@ import {InfoHeaderBlock} from "./InfoHeaderBlock/InfoHeaderBlock.tsx";
 
 import cls from './ExcelUploader.module.scss';
 import {Loader} from "@/shared/ui/Loader";
+import {filterAndTrackEmptyValuesFromArrays} from "@/widgets/ExcelUploader/lib/clearDirtyXlsFile.ts";
 
 interface DataRow {
   [key: string]: any;
@@ -41,10 +42,9 @@ export const ExcelUploader = () => {
   const supplierWatcher = watch('supplier');
 
   const isArticleSelected = selectedHeaders.some(el => el.value === 'article');
-  const isNameSelected = selectedHeaders.some(el => el.value === 'name');
   const isSupplierSelected = selectedHeaders.some(el => el.value === 'supplier') || supplierWatcher;
 
-  const isButtonDisabled = !isArticleSelected || !isNameSelected || !isSupplierSelected;
+  const isButtonDisabled = !isArticleSelected || !isSupplierSelected;
 
   const {bulkUpdatePrice} = usePriceList();
 
@@ -81,23 +81,17 @@ export const ExcelUploader = () => {
         }
 
         const headers = jsonData[0] as string[]; // Первую строку используем как заголовки
+
         const filteredHeaders = headers.filter(Boolean)
 
         const emptyHeadersInit = filteredHeaders.map(_ => ({value: null, label: null}));
 
         setSelectedHeaders(emptyHeadersInit);
 
-        // Конвертируем все ячейки в строки
-        const stringifiesData = jsonData.map(row =>
-          row.map(cell => (cell !== null && cell !== undefined) ? String(cell) : "")
-        );
-        // Удаляем данные в столбцах с пустыми заголовками
-        const filteredData = stringifiesData.slice(1).map(row =>
-          row.filter((_: any, index: number) => Boolean(headers[index]))
-        );
+        const {filteredArrays} = filterAndTrackEmptyValuesFromArrays(jsonData);
 
-        setData(filteredData.slice(0, 5)); // Отображаем первые 10 строк данных (без заголовков)
-        setXlsxData(filteredData);
+        setData(filteredArrays.slice(0, 5)); // Отображаем первые 10 строк данных (без заголовков)
+        setXlsxData(filteredArrays);
       };
 
       reader.readAsArrayBuffer(file);
@@ -224,7 +218,6 @@ export const ExcelUploader = () => {
     <div className={cls.wrapper}>
       <InfoHeaderBlock
         isArticleSelected={isArticleSelected}
-        isNameSelected={isNameSelected}
         isSupplierSelected={isSupplierSelected}
       />
       <div className={cls.header}>
@@ -252,7 +245,6 @@ export const ExcelUploader = () => {
             настройки
           </Button>}
       </div>
-
       {
         data.length > 0 && (
           <div className={cls.body}>
