@@ -14,6 +14,11 @@ export const tableConfig = (): TableConfig<PriceSchema> => ({
       component: ArticleCustom,
     },
     {
+      name: lang.cell.articleRu,
+      dataAnchor: 'articleRu',
+      component: ArticleCustom,
+    },
+    {
       name: lang.cell.name,
       dataAnchor: 'name',
     },

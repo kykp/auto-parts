@@ -11,20 +11,22 @@ const headers = [
 interface InfoHeaderBlockProps {
   isArticleSelected: boolean;
   isSupplierSelected: boolean;
+  isArticleRuSelected: boolean;
 }
 
 export const InfoHeaderBlock = (props: InfoHeaderBlockProps) => {
-  const {isSupplierSelected, isArticleSelected} = props;
+  const {isSupplierSelected, isArticleSelected, isArticleRuSelected} = props;
 
   const [activeIndexes, setActiveIndexes] = useState([]);
 
   useEffect(() => {
     const newActiveIndexes = [];
     if (isArticleSelected) newActiveIndexes.push(headers.findIndex(h => h.value === 'article'));
+    if (isArticleRuSelected) newActiveIndexes.push(headers.findIndex(h => h.value === 'article'));
     if (isSupplierSelected) newActiveIndexes.push(headers.findIndex(h => h.value === 'supplier'));
 
     setActiveIndexes(newActiveIndexes);
-  }, [isArticleSelected, isSupplierSelected]);
+  }, [isArticleSelected, isSupplierSelected, isArticleRuSelected]);
 
   return (
     <div className={cls.info}>

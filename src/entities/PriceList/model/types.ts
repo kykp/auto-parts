@@ -20,6 +20,7 @@ export interface ParamsGetPriceList {
 export interface PriceSchema {
   id: number;
   article: string;
+  articleRu?: string;
   name: string;
   brand: string;
   delivery_time: string;
@@ -39,6 +40,7 @@ export type MainPriceSchemaHeaderKeys = keyof PriceSchemaMutation;
 // Переводы для ключей
 export const translations: Record<MainPriceSchemaHeaderKeys, string> = {
   article: 'Артикул',
+  articleRu: 'Артикул Ru',
   name: 'Наименование',
   brand: 'Бренд',
   delivery_time: 'Время поставки',
@@ -54,6 +56,7 @@ export const createSelectOptions = (): SelectOptions<MainPriceSchemaHeaderKeys>[
   // Получаем ключи из интерфейса MainPriceSchemaHeaders
   const keys: MainPriceSchemaHeaderKeys[] = [
     'article',
+    'articleRu',
     'name',
     'supplier',
     'brand',

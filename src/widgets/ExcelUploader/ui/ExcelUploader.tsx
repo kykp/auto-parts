@@ -21,6 +21,7 @@ import {InfoHeaderBlock} from "./InfoHeaderBlock/InfoHeaderBlock.tsx";
 import cls from './ExcelUploader.module.scss';
 import {Loader} from "@/shared/ui/Loader";
 import {filterAndTrackEmptyValuesFromArrays} from "@/widgets/ExcelUploader/lib/clearDirtyXlsFile.ts";
+import {Checkbox} from "@/shared/ui/Field";
 
 interface DataRow {
   [key: string]: any;
@@ -31,6 +32,7 @@ export const ExcelUploader = () => {
   const [data, setData] = useState<DataRow[]>([]);
   const [selectedHeaders, setSelectedHeaders] = useState<SelectOptions[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRussiaArticles, setIsRussiansArticle] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -42,9 +44,10 @@ export const ExcelUploader = () => {
   const supplierWatcher = watch('supplier');
 
   const isArticleSelected = selectedHeaders.some(el => el.value === 'article');
+  const isArticleRuSelected = selectedHeaders.some(el => el.value === 'articleRu');
   const isSupplierSelected = selectedHeaders.some(el => el.value === 'supplier') || supplierWatcher;
 
-  const isButtonDisabled = !isArticleSelected || !isSupplierSelected;
+  const isButtonDisabled = (!isArticleSelected && !isArticleRuSelected) || !isSupplierSelected;
 
   const {bulkUpdatePrice} = usePriceList();
 
@@ -123,27 +126,27 @@ export const ExcelUploader = () => {
         // Если header == 'purchase_price'
         if (header === 'purchase_price' && extraChangePrice) {
           const purchasePrice = parseFloat(cellValue?.replace(/[^\d.-]/g, '')) || 0;
-          const roundedPurchasePrice = Math.round(purchasePrice);
+          const roundedPurchasePrice = Math.ceil(purchasePrice);
           acc['purchase_price'] = roundedPurchasePrice;
-          acc['price'] = Math.round(roundedPurchasePrice + (roundedPurchasePrice * (extraChangePrice / 100)));
+          acc['price'] = Math.ceil(roundedPurchasePrice + (roundedPurchasePrice * (extraChangePrice / 100)));
         }
 
         // Преобразование price в целое число
         if (header === 'price') {
           const priceValue = parseFloat(cellValue?.replace(/[^\d.-]/g, '')) || 0;
-          acc['price'] = Math.round(priceValue);
+          acc['price'] = Math.ceil(priceValue);
         }
 
         // Преобразование quantity в целое число
         if (header === 'quantity') {
           const quantityValue = parseFloat(cellValue?.replace(/[^\d.-]/g, '')) || 0;
-          acc['quantity'] = Math.round(quantityValue);
+          acc['quantity'] = Math.ceil(quantityValue);
         }
 
         // Преобразование min_order_qty в целое число, и установка значения минимум 1
         if (header === 'min_order_qty') {
           const minOrderQtyValue = parseFloat(cellValue?.replace(/[^\d.-]/g, '')) || 0;
-          acc['min_order_qty'] = Math.max(Math.round(minOrderQtyValue), 1);
+          acc['min_order_qty'] = Math.max(Math.ceil(minOrderQtyValue), 1);
         }
 
         if (supplierWatcher) {
@@ -154,9 +157,14 @@ export const ExcelUploader = () => {
           acc['article'] = typeof cellValue === 'string' ? cellValue.replace(/\s+/g, '') : '';
         }
 
+        if (header === 'articleRu') {
+          acc['articleRu'] = typeof cellValue === 'string' ? cellValue.replace(/\s+/g, '') : '';
+        }
+
         return acc;
       }, {
         article: undefined,
+        articleRu: undefined,
         brand: undefined,
         delivery_time: undefined,
         min_order_qty: undefined,
@@ -168,9 +176,8 @@ export const ExcelUploader = () => {
       });
     }).filter(row => Object.keys(row).length > 0);
 
-
     try {
-      const response = await bulkUpdatePrice(dataWithHeaders as any);
+      const response = await bulkUpdatePrice(dataWithHeaders as any, isRussiaArticles ? 'cyrillic' : undefined);
 
       if (response) {
         dispatch(openModal({
@@ -214,10 +221,13 @@ export const ExcelUploader = () => {
     return <Loader/>
   }
 
+  const onToggleRussianArticles = () => setIsRussiansArticle(prevState => !prevState);
+
   return (
     <div className={cls.wrapper}>
       <InfoHeaderBlock
         isArticleSelected={isArticleSelected}
+        isArticleRuSelected={isArticleRuSelected}
         isSupplierSelected={isSupplierSelected}
       />
       <div className={cls.header}>
@@ -227,6 +237,11 @@ export const ExcelUploader = () => {
           label={lang.label.supplier}
           className={cls.header_supplier}
           placeholder={lang.placeHolder.supplier}
+        />
+        <Checkbox
+          onChange={onToggleRussianArticles}
+          label='Артикулы на русском языке'
+          value={isRussiaArticles}
         />
         {isShowInput && (
           <label className={cls.custom_file_upload}>

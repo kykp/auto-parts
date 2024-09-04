@@ -2,6 +2,7 @@ import {FormValues} from "@/features/PriceForm/types/types.ts";
 
 export const defaultValues: FormValues = {
   article: '',
+  articleRu: '',
   name: '',
   brand: '',
   delivery_time: '',

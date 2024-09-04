@@ -141,6 +141,7 @@ export const lang = {
   cell: {
     id: 'ID',
     article: 'Артикул',
+    articleRu: 'Артикул Ru',
     image: 'Изображение',
     type: 'Тип',
     name: 'Наименование',
@@ -181,6 +182,7 @@ export const lang = {
     isMain: 'Сделать основным',
     listOrder: 'Очередность в списке',
     article: 'Артикул',
+    articleRu: 'Артикул на русском',
     name: 'Название',
     brand: 'Бренд',
     deliveryTime: 'Срок поставки',

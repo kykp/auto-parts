@@ -7,7 +7,7 @@ export const parseDataToForm = (data: PriceSchema): FormValues => {
     return defaultValues
   }
 
-  const {purchase_price, price, delivery_time, name, min_order_qty, brand, article, quantity, supplier} = data;
+  const {purchase_price, price, delivery_time, name, min_order_qty, brand, article, articleRu, quantity, supplier} = data;
 
   return {
     purchase_price,
@@ -17,6 +17,7 @@ export const parseDataToForm = (data: PriceSchema): FormValues => {
     supplier,
     quantity,
     article,
+    articleRu,
     brand,
     min_order_qty
   }

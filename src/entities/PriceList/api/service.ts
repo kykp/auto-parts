@@ -15,8 +15,8 @@ export class PriceList {
     return $api.delete(`/price-list/${id}`)
   }
 
-  static bulkUploadPrice = (data: PriceSchemaMutation) => {
-    return $api.post('/price-list/bulk-update', {updatedPriceList: data})
+  static bulkUploadPrice = (data: PriceSchemaMutation, searchBy: 'cyrillic' | undefined) => {
+    return $api.post('/price-list/bulk-update', {updatedPriceList: data, searchBy})
   };
 
   static deleteAllPrices = () => {

@@ -2,6 +2,7 @@ import {lang} from "@/shared/consts/lang.ts";
 
 export const formFields = [
   {name: 'article', label: lang.label.article},
+  {name: 'articleRu', label: lang.label.articleRu},
   {name: 'name', label: lang.label.name},
   {name: 'brand', label: lang.label.brand},
   {name: 'delivery_time', label: lang.label.deliveryTime},

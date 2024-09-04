@@ -1,8 +1,7 @@
+import {_perPageList} from '@/app/types/config';
 
-import { _perPageList } from '@/app/types/config';
-
-import { lang } from '@/shared/consts/lang';
-import { PerPageItem } from '@/shared/ui/PerPage/PerPageItem';
+import {lang} from '@/shared/consts/lang';
+import {PerPageItem} from '@/shared/ui/PerPage/PerPageItem';
 
 import cls from './PerPageItem.module.scss';
 
@@ -11,6 +10,7 @@ interface PerPageProps {
   perPage?: string
   list?: string[]
   setPerPage: (perPage: number) => void
+  total?: string;
 }
 
 export const PerPage = (props: PerPageProps) => {
@@ -18,6 +18,7 @@ export const PerPage = (props: PerPageProps) => {
   const {
     className,
     perPage,
+    total,
     list = _perPageList,
     setPerPage,
   } = props;
